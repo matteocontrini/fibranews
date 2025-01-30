@@ -7,7 +7,7 @@
 </script>
 
 <div>
-	<div class="uppercase font-medium bg-[#FDC400] text-yellow-900 inline-block px-2.5 py-0.5 rounded">
+	<div class="uppercase font-medium bg-[#FDC400] text-yellow-900 inline-block px-2.5 py-0.5 rounded-sm">
 		{post.date}
 	</div>
 	<h3 class="text-3xl font-light mt-4">

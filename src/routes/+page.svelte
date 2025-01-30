@@ -7,7 +7,7 @@
 </script>
 
 <div class="w-[600px] mx-auto mt-12 mb-20">
-	<div class="flex justify-center items-center py-12 border rounded bg-slate-50/40">
+	<div class="flex justify-center items-center py-12 border rounded-sm bg-slate-50/40">
 		<img src="https://upload.wikimedia.org/wikipedia/commons/d/dd/Logo_Fastweb_2020.svg"
 				 class="w-[300px] mx-auto"
 				 alt="Fastweb">
