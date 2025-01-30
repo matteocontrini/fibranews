@@ -1,22 +1,26 @@
 import { PostEntity } from '$lib/server/db/schema';
-import type { Post } from '$lib/types';
+import type { Post, PostTag } from '$lib/types';
 import rehypeStringify from 'rehype-stringify';
 import remarkParse from 'remark-parse';
 import remarkRehype from 'remark-rehype';
 import { unified } from 'unified';
 import { IsNull } from 'typeorm';
 
-export async function load() {
+export async function load({ params }) {
+	const { slug } = params;
+
 	const posts = await PostEntity.find({
 		where: {
-			deletedAt: IsNull()
+			deletedAt: IsNull(),
+			tags: { slug }
+		},
+		order: {
+			date: 'DESC'
 		},
 		relations: {
 			tags: true
 		}
 	});
-
-	console.log(posts);
 
 	// TODO: group by year
 
@@ -32,7 +36,8 @@ export async function load() {
 				return {
 					title: x.title,
 					date: convertDate(x.date, x.hideDay),
-					content: content.toString()
+					content: content.toString(),
+					tags: x.tags.map((t) => ({ slug: t.slug }) satisfies PostTag as PostTag)
 				} satisfies Post as Post;
 			})
 		)
