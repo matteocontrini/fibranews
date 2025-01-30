@@ -3,12 +3,16 @@
 @config '../tailwind.config.ts';
 
 @layer base {
-  /* Default border color is gray-200 */
+  /* Default border color is slate-200 */
   *,
   ::after,
   ::before,
   ::backdrop,
   ::file-selector-button {
-    border-color: var(--color-gray-200, currentColor);
+    border-color: var(--color-slate-200, currentColor);
+  }
+
+  hr {
+    @apply border-t-slate-200 dark:border-slate-800;
   }
 }

@@ -10,15 +10,15 @@
 	<div class="uppercase font-medium bg-[#FDC400] text-yellow-900 inline-block px-2.5 py-0.5 rounded-sm">
 		{post.date}
 	</div>
-	<h3 class="text-3xl font-light mt-4">
+	<h3 class="text-3xl font-light mt-4 dark:text-white">
 		{post.title}
 	</h3>
 
-	<div class="mt-4 prose prose-lg">
+	<div class="mt-4 prose prose-lg dark:text-slate-300">
 		{@html post.content}
 	</div>
 
-	<div class="text-sm mt-6 text-slate-500">
+	<div class="text-sm mt-6 text-slate-500 dark:text-slate-400">
 		{#if !showSources}
 			<button class="flex items-center gap-1.5 group" onclick={() => showSources = true}>
 				<span class="rotate-90">
@@ -34,8 +34,8 @@
 					<img
 						src="https://t0.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://repubblica.it&size=32"
 						alt="" class="size-4">
-					<a class="text-sm text-slate-500 hover:underline" href="TODO">
-						Italiano arrestato in Venezuela, da due mesi non si sa dove sia. “Intervenga il governo"
+					<a class="text-sm text-slate-500 dark:text-slate-400 hover:underline" href="TODO">
+						Fastweb entra nel mercato dell’energia elettrica nel segno della sostenibilità
 					</a>
 				</li>
 			</ul>
