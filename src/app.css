@@ -1,6 +1,8 @@
 @import 'tailwindcss';
+@import url('satoshi.css');
 
 @config '../tailwind.config.ts';
+
 
 @layer base {
   /* Default border color is slate-200 */

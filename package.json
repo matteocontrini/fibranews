@@ -35,7 +35,6 @@
 	},
 	"dependencies": {
 		"@fontsource-variable/inter": "^5.1.1",
-		"@fontsource/zilla-slab": "^5.1.1",
 		"@sveltejs/adapter-node": "^5.2.11",
 		"@tailwindcss/typography": "^0.5.15",
 		"dotenv": "^16.4.7",

@@ -9,7 +9,7 @@
 </svelte:head>
 
 <div class="container mt-16 mb-20">
-	<h1 class="text-center text-6xl font-medium tracking-wide font-serif">
+	<h1 class="text-center text-6xl font-black tracking-wide">
 		{data.tag.name}
 	</h1>
 

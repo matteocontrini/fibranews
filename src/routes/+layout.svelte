@@ -1,6 +1,5 @@
 <script lang="ts">
 	import '@fontsource-variable/inter';
-	import '@fontsource/zilla-slab/500.css';
 	import '../app.css';
 
 	import { ModeWatcher, userPrefersMode } from 'mode-watcher';
@@ -25,7 +24,7 @@
 	<!--	</a>-->
 	<a class="rounded-lg text-2xl select-none"
 		 href="/">
-		<span class="font-bold tracking-wider text-slate-600 dark:text-slate-400">
+		<span class="font-bold tracking-wide text-slate-600 dark:text-slate-400">
 			fibra.
 		</span><span class="font-light text-violet-700 dark:text-violet-600">
 			news
