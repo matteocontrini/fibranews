@@ -9,9 +9,12 @@
 </svelte:head>
 
 <div class="container mt-16 mb-20">
-	<h1 class="text-center text-6xl font-medium tracking-wide font-serif">
-		{data.tag.name}
-	</h1>
+	<div class="flex justify-center">
+		<h1 class="inline-block text-center text-6xl font-medium tracking-wide font-serif
+		      pb-2 px-1 border-b-4 border-b-violet-700 dark:border-b-violet-500">
+			{data.tag.name}
+		</h1>
+	</div>
 
 	<div class="mt-24">
 		<div class="text-4xl max-md:text-center">
