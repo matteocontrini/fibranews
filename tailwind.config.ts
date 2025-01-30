@@ -22,7 +22,8 @@ export default {
 				}
 			},
 			fontFamily: {
-				sans: ['Inter Variable', ...defaultTheme.fontFamily.sans]
+				sans: ['Inter Variable', ...defaultTheme.fontFamily.sans],
+				serif: ['Zilla Slab', ...defaultTheme.fontFamily.serif]
 			}
 		}
 	},

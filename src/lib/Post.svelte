@@ -4,6 +4,8 @@
 	let { post }: { post: Post } = $props();
 
 	let showSources = $state(false);
+
+	/* eslint svelte/no-at-html-tags: "off" */
 </script>
 
 <div class="grid md:grid-cols-12 gap-y-6 max-md:border-b pb-10">

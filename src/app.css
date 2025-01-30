@@ -10,6 +10,7 @@
   ::backdrop,
   ::file-selector-button {
     border-color: var(--color-slate-200, currentColor);
+
     .dark & {
       border-color: var(--color-slate-800, currentColor);
     }
@@ -17,10 +18,5 @@
 
   hr {
     @apply border-t-slate-200 dark:border-slate-800;
-  }
-
-  h1 {
-    font-family: Zilla Slab, serif;
-    font-weight: 500;
   }
 }

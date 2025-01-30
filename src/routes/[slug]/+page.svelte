@@ -5,7 +5,7 @@
 </script>
 
 <div class="container mt-16 mb-20">
-	<h1 class="text-center text-6xl font-medium tracking-wide">
+	<h1 class="text-center text-6xl font-medium tracking-wide font-serif">
 		Fastweb
 	</h1>
 
