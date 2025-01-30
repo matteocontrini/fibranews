@@ -4,11 +4,12 @@ import rehypeStringify from 'rehype-stringify';
 import remarkParse from 'remark-parse';
 import remarkRehype from 'remark-rehype';
 import { unified } from 'unified';
+import { IsNull } from 'typeorm';
 
 export async function load() {
 	const posts = await PostEntity.find({
 		where: {
-			deletedAt: null
+			deletedAt: IsNull()
 		},
 		relations: {
 			tags: true
