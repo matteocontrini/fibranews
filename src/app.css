@@ -10,6 +10,9 @@
   ::backdrop,
   ::file-selector-button {
     border-color: var(--color-slate-200, currentColor);
+    .dark & {
+      border-color: var(--color-slate-800, currentColor);
+    }
   }
 
   hr {
