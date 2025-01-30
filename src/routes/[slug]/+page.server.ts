@@ -1,13 +1,22 @@
-import { PostEntity } from '$lib/server/db/schema';
+import { PostEntity, TagEntity } from '$lib/server/db/schema';
 import type { Post, PostTag } from '$lib/types';
 import rehypeStringify from 'rehype-stringify';
 import remarkParse from 'remark-parse';
 import remarkRehype from 'remark-rehype';
 import { unified } from 'unified';
 import { IsNull } from 'typeorm';
+import { error } from '@sveltejs/kit';
 
 export async function load({ params }) {
 	const { slug } = params;
+
+	const tag = await TagEntity.findOne({
+		where: { slug }
+	});
+
+	if (!tag) {
+		throw error(404, 'Not found');
+	}
 
 	const posts = await PostEntity.find({
 		where: {
@@ -25,6 +34,9 @@ export async function load({ params }) {
 	// TODO: group by year
 
 	return {
+		tag: {
+			name: tag.name
+		},
 		posts: await Promise.all(
 			posts.map(async (x) => {
 				const content = await unified()

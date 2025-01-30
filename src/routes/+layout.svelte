@@ -8,6 +8,10 @@
 	let { children } = $props();
 </script>
 
+<svelte:head>
+	<title>Fibra.news</title>
+</svelte:head>
+
 <ModeWatcher />
 
 <div class="py-6 container flex items-center">
