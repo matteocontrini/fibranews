@@ -18,4 +18,9 @@
   hr {
     @apply border-t-slate-200 dark:border-slate-800;
   }
+
+  h1 {
+    font-family: Zilla Slab, serif;
+    font-weight: 500;
+  }
 }

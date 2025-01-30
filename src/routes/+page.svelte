@@ -5,14 +5,12 @@
 </script>
 
 <div class="container mt-16 mb-20">
-	<h2 class="text-center text-5xl font-medium">
+	<h1 class="text-center text-6xl font-medium tracking-wide">
 		Fastweb
-	</h2>
+	</h1>
 
-	<hr class="border-t my-20">
-
-	<div>
-		<div class="font-light text-4xl">
+	<div class="mt-24">
+		<div class="text-4xl max-md:text-center">
 			2025
 		</div>
 
