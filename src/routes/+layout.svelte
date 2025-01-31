@@ -33,7 +33,7 @@
 
 	<div class="ml-auto font-medium flex gap-8">
 		<a href="/" class="hover:underline">
-			Tutte le notizie
+			Ultime notizie
 		</a>
 		<a href="/" class="hover:underline">
 			Tutti i tag

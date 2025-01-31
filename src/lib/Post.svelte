@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { Post } from '$lib/types';
 
-	let { post }: { post: Post } = $props();
+	let { post, alwaysShowTags }: { post: Post, alwaysShowTags?: boolean } = $props();
 
 	let showSources = $state(false);
 
@@ -20,7 +20,7 @@
 			{post.title}
 		</h2>
 
-		{#if post.tags.length > 1}
+		{#if post.tags.length > 1 || alwaysShowTags}
 			<div class="mt-3 space-x-2.5">
 				{#each post.tags as tag}
 					<a class="text-violet-700 dark:text-violet-500 hover:underline"

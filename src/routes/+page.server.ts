@@ -1,44 +1,28 @@
-import { PostEntity, PostStatus, TagEntity } from '$lib/server/db/schema';
+import { PostEntity, PostStatus } from '$lib/server/db/schema';
 import type { Post, PostTag } from '$lib/types';
 import rehypeStringify from 'rehype-stringify';
 import remarkParse from 'remark-parse';
 import remarkRehype from 'remark-rehype';
 import { unified } from 'unified';
 import { IsNull } from 'typeorm';
-import { error } from '@sveltejs/kit';
 
-export async function load({ params }) {
-	const { slug } = params;
-
-	const tag = await TagEntity.findOne({
-		where: { slug }
-	});
-
-	if (!tag) {
-		throw error(404, 'Not found');
-	}
-
+export async function load() {
 	const posts = await PostEntity.find({
 		where: {
 			deletedAt: IsNull(),
-			tags: { slug },
 			status: PostStatus.PUBLISHED
 		},
 		order: {
 			date: 'DESC'
 		},
+		take: 20,
 		relations: {
 			tags: true
 		}
 	});
 
-	// TODO: group by year
-
+	// TODO: DRY
 	return {
-		tag: {
-			slug: slug,
-			name: tag.name
-		},
 		posts: await Promise.all(
 			posts.map(async (x) => {
 				const content = await unified()
