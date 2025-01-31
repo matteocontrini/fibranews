@@ -31,9 +31,12 @@
 		</span>
 	</a>
 
-	<div class="ml-auto font-medium">
+	<div class="ml-auto font-medium flex gap-8">
 		<a href="/" class="hover:underline">
-			Tutti i post
+			Tutte le notizie
+		</a>
+		<a href="/" class="hover:underline">
+			Tutti i tag
 		</a>
 	</div>
 </div>
@@ -41,6 +44,8 @@
 <hr>
 
 {@render children()}
+
+<hr class="mt-20">
 
 <footer class="container py-12 flex justify-center">
 	<select class="p-2 rounded-md"
