@@ -1,5 +1,4 @@
 import { PostEntity, PostStatus, TagEntity } from '$lib/server/db/schema';
-import { IsNull } from 'typeorm';
 import { error } from '@sveltejs/kit';
 import { mapPost } from '$lib/server/mapping';
 
@@ -20,6 +19,7 @@ export async function load({ params }) {
 		.leftJoinAndSelect('post.sources', 'source')
 		.where('tag.slug = :slug', { slug })
 		.andWhere('post.status = :status', { status: PostStatus.PUBLISHED })
+		.andWhere('post.deletedAt IS NULL')
 		.orderBy('post.date', 'DESC')
 		.getMany();
 
