@@ -97,7 +97,7 @@ export class PostEntity extends BaseEntity {
 	@Column('text')
 	title: string;
 
-	@Column('text')
+	@Column('text', { unique: true })
 	slug: string;
 
 	@Column('date')
