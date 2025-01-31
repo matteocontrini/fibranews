@@ -24,11 +24,11 @@
 		</span>
 	</a>
 
-	<p class="italic md:mr-auto ml-6 md:mt-1.5 text-slate-500 text-center">
+	<p class="italic md:mr-auto md:ml-6 md:mt-1.5 text-slate-500 text-center">
 		Notizie sulle telecomunicazioni in Italia
 	</p>
 
-	<div class="ml-8 md:mt-1.5 flex items-center gap-5">
+	<div class="md:ml-8 md:mt-1.5 flex items-center justify-center gap-x-5 gap-y-1 flex-wrap">
 		{#each data.popularTags as tag}
 			<a class="text-violet-700 dark:text-violet-500 hover:underline"
 				 href="/{tag.slug}">
