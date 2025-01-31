@@ -8,7 +8,7 @@
 	/* eslint svelte/no-at-html-tags: "off" */
 </script>
 
-<div class="grid md:grid-cols-12 gap-y-6 max-md:border-b">
+<div class="grid md:grid-cols-12 gap-y-6 max-md:border-b max-md:pb-10">
 	<div class="col-span-4">
 		<p class="text-slate-500 dark:text-slate-400 text-xl leading-10">
 			{post.date}
@@ -37,30 +37,33 @@
 			{@html post.content}
 		</div>
 
-		<div class="mt-6 text-violet-700 dark:text-violet-500">
-			<button class="flex items-center gap-1.5 group cursor-pointer"
-							class:hidden={showSources}
-							onclick={() => showSources = true}>
-				<span class="rotate-90">
-					»
-				</span>
-				<span class="group-hover:underline">
-					Mostra 5 fonti
-				</span>
-			</button>
+		{#if post.sources.length > 0}
+			<div class="mt-6 text-violet-700 dark:text-violet-500">
+				<button class="flex items-center gap-1.5 group cursor-pointer"
+								class:hidden={showSources}
+								onclick={() => showSources = true}>
+					<span class="rotate-90">
+						»
+					</span>
+					<span class="group-hover:underline">
+						Mostra fonti
+					</span>
+				</button>
 
-			<ul class:hidden={!showSources}>
-				<li class="flex items-center gap-2">
-					<img
-						src="https://t0.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://repubblica.it&size=32"
-						alt="" class="size-4">
-					<a class="text-violet-700 dark:text-violet-500 hover:underline"
-						 href="TODO" rel="external"
-						 target="_blank">
-						Fastweb entra nel mercato dell’energia elettrica nel segno della sostenibilità
-					</a>
-				</li>
-			</ul>
-		</div>
+				<ul class:hidden={!showSources} class="space-y-1.5">
+					{#each post.sources as source}
+						<li class="flex gap-2.5">
+							<img
+								src="https://t0.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://{source.domain}&size=32"
+								alt="" class="mt-1.25 size-4">
+							<a class="hover:underline"
+								 href="{source.url}" rel="external" target="_blank">
+								{source.title}
+							</a>
+						</li>
+					{/each}
+				</ul>
+			</div>
+		{/if}
 	</div>
 </div>

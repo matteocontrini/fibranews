@@ -5,10 +5,17 @@ export type Post = {
 	year: string;
 	content: string;
 	tags: PostTag[];
+	sources: PostSource[];
 };
 
 export type PostTag = {
 	slug: string;
+};
+
+export type PostSource = {
+	url: string;
+	domain: string;
+	title: string;
 };
 
 export type PopularTag = {

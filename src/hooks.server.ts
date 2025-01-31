@@ -1,5 +1,5 @@
 import 'reflect-metadata';
-import { dataSource } from '$lib/server/db/db';
+import { dataSource } from '$lib/server/db';
 
 dataSource
 	.initialize()

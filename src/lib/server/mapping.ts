@@ -18,9 +18,15 @@ export async function mapPost(x: PostEntity): Promise<Post> {
 		date: convertDate(x.date, x.hideDay),
 		year: x.date.slice(0, 4),
 		content: content.toString(),
-		tags: x.tags.map((t) => ({ slug: t.slug }))
+		tags: x.tags.map((t) => ({ slug: t.slug })),
+		sources: x.sources.map((s) => ({
+			url: s.url,
+			domain: s.domain,
+			title: s.title
+		}))
 	};
 }
+
 function convertDate(input: string, hideDay = false) {
 	const date = new Date(input);
 	const options = {

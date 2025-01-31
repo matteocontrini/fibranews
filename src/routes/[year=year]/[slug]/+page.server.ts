@@ -14,7 +14,8 @@ export async function load({ params }) {
 			slug
 		},
 		relations: {
-			tags: true
+			tags: true,
+			sources: true
 		}
 	});
 

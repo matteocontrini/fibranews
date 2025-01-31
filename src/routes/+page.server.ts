@@ -14,7 +14,8 @@ export async function load() {
 		},
 		take: 20,
 		relations: {
-			tags: true
+			tags: true,
+			sources: true
 		}
 	});
 

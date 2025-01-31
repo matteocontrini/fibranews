@@ -24,7 +24,8 @@ export async function load({ params }) {
 			date: 'DESC'
 		},
 		relations: {
-			tags: true
+			tags: true,
+			sources: true
 		}
 	});
 
