@@ -1,5 +1,5 @@
 import { PostEntity, PostStatus, TagEntity } from '$lib/server/db/schema';
-import type { Post, PostTag } from '$lib/types';
+import type { Post } from '$lib/types';
 import rehypeStringify from 'rehype-stringify';
 import remarkParse from 'remark-parse';
 import remarkRehype from 'remark-rehype';
@@ -32,29 +32,44 @@ export async function load({ params }) {
 		}
 	});
 
-	// TODO: group by year
+	const mappedPosts = await Promise.all(posts.map(mapPost));
+
+	// Group posts by year
+	const postsByYear = [];
+	for (const post of mappedPosts) {
+		const lastGroup = postsByYear[postsByYear.length - 1];
+		if (!lastGroup || lastGroup.year !== post.year) {
+			postsByYear.push({
+				year: post.year,
+				posts: [post]
+			});
+		} else {
+			lastGroup.posts.push(post);
+		}
+	}
 
 	return {
 		tag: {
 			slug: slug,
 			name: tag.name
 		},
-		posts: await Promise.all(
-			posts.map(async (x) => {
-				const content = await unified()
-					.use(remarkParse)
-					.use(remarkRehype)
-					.use(rehypeStringify)
-					.process(x.content);
+		postsByYear
+	};
+}
 
-				return {
-					title: x.title,
-					date: convertDate(x.date, x.hideDay),
-					content: content.toString(),
-					tags: x.tags.map((t) => ({ slug: t.slug }) satisfies PostTag as PostTag)
-				} satisfies Post as Post;
-			})
-		)
+async function mapPost(x: PostEntity): Promise<Post> {
+	const content = await unified()
+		.use(remarkParse)
+		.use(remarkRehype)
+		.use(rehypeStringify)
+		.process(x.content);
+
+	return {
+		title: x.title,
+		date: convertDate(x.date, x.hideDay),
+		year: x.date.slice(0, 4),
+		content: content.toString(),
+		tags: x.tags.map((t) => ({ slug: t.slug }))
 	};
 }
 

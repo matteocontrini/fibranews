@@ -17,15 +17,17 @@
 		</span>
 	</h1>
 
-	<div class="mt-20">
-		<div class="text-4xl max-md:text-center">
-			2025
-		</div>
+	<div class="mt-20 grid gap-20">
+		{#each data.postsByYear as year}
+			<div class="text-4xl max-md:text-center">
+				{year.year}
+			</div>
 
-		<div class="mt-20 grid gap-16">
-			{#each data.posts as post}
-				<Post {post} />
-			{/each}
-		</div>
+			<div class="grid gap-16">
+				{#each year.posts as post}
+					<Post {post} />
+				{/each}
+			</div>
+		{/each}
 	</div>
 </div>

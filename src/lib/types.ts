@@ -1,6 +1,7 @@
 export type Post = {
 	title: string;
 	date: string;
+	year: string;
 	content: string;
 	tags: PostTag[];
 };
