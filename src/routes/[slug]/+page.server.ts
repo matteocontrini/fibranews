@@ -11,7 +11,7 @@ export async function load({ params }) {
 	});
 
 	if (!tag) {
-		throw error(404, 'Not found');
+		error(404, 'Not found');
 	}
 
 	const posts = await PostEntity.find({

@@ -58,6 +58,9 @@ export class PostEntity extends BaseEntity {
 	@Column('text')
 	title: string;
 
+	@Column('text')
+	slug: string;
+
 	@Column('date')
 	date: string;
 

@@ -17,7 +17,9 @@
 
 	<div class="col-span-8">
 		<h2 class="text-3xl leading-[1.4] dark:text-white">
-			{post.title}
+			<a href="/{post.year}/{post.slug}" class="hover:underline">
+				{post.title}
+			</a>
 		</h2>
 
 		{#if post.tags.length > 1 || alwaysShowTags}

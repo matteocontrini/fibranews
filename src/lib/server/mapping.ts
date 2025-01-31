@@ -14,6 +14,7 @@ export async function mapPost(x: PostEntity): Promise<Post> {
 
 	return {
 		title: x.title,
+		slug: x.slug,
 		date: convertDate(x.date, x.hideDay),
 		year: x.date.slice(0, 4),
 		content: content.toString(),
