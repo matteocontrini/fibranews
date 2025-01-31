@@ -47,8 +47,15 @@
 
 <hr class="mt-20">
 
-<footer class="container py-12 flex justify-center">
-	<select class="p-2 rounded-md"
+<footer class="container py-12 flex">
+	<div>
+		<a href="https://creativecommons.org/licenses/by/4.0/deed.it" rel="external"
+			 class="font-medium text-violet-700 dark:text-violet-500 hover:underline">
+			&copy; CC BY 4.0
+		</a>
+	</div>
+
+	<select class="rounded-md ml-auto"
 					bind:value={$userPrefersMode}>
 		<option value="system">Auto</option>
 		<option value="light">Light</option>
