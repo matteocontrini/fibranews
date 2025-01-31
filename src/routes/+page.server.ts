@@ -1,10 +1,7 @@
 import { PostEntity, PostStatus, TagEntity } from '$lib/server/db/schema';
-import type { PopularTag, Post, PostTag } from '$lib/types';
-import rehypeStringify from 'rehype-stringify';
-import remarkParse from 'remark-parse';
-import remarkRehype from 'remark-rehype';
-import { unified } from 'unified';
 import { IsNull } from 'typeorm';
+import type { PopularTag } from '$lib/types';
+import { mapPost } from '$lib/server/mapping';
 
 export async function load() {
 	const posts = await PostEntity.find({
@@ -29,39 +26,14 @@ export async function load() {
 		.getMany();
 
 	return {
-		popularTags: popularTags.map(
-			(x) =>
-				({
-					slug: x.slug,
-					name: x.name
-				}) satisfies PopularTag as PopularTag
-		),
-		// TODO: DRY
-		posts: await Promise.all(
-			posts.map(async (x) => {
-				const content = await unified()
-					.use(remarkParse)
-					.use(remarkRehype)
-					.use(rehypeStringify)
-					.process(x.content);
-
-				return {
-					title: x.title,
-					date: convertDate(x.date, x.hideDay),
-					content: content.toString(),
-					tags: x.tags.map((t) => ({ slug: t.slug }) satisfies PostTag as PostTag)
-				} satisfies Post as Post;
-			})
-		)
+		popularTags: popularTags.map(mapTag),
+		posts: await Promise.all(posts.map(mapPost))
 	};
 }
 
-function convertDate(input: string, hideDay = false) {
-	const date = new Date(input);
-	const options = {
-		year: 'numeric',
-		month: 'long',
-		...(hideDay ? {} : { day: 'numeric' })
-	} as Intl.DateTimeFormatOptions;
-	return new Intl.DateTimeFormat('it-IT', options).format(date);
+function mapTag(x: TagEntity): PopularTag {
+	return {
+		slug: x.slug,
+		name: x.name
+	};
 }

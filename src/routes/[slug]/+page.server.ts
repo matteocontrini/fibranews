@@ -1,11 +1,7 @@
 import { PostEntity, PostStatus, TagEntity } from '$lib/server/db/schema';
-import type { Post } from '$lib/types';
-import rehypeStringify from 'rehype-stringify';
-import remarkParse from 'remark-parse';
-import remarkRehype from 'remark-rehype';
-import { unified } from 'unified';
 import { IsNull } from 'typeorm';
 import { error } from '@sveltejs/kit';
+import { mapPost } from '$lib/server/mapping';
 
 export async function load({ params }) {
 	const { slug } = params;
@@ -55,30 +51,4 @@ export async function load({ params }) {
 		},
 		postsByYear
 	};
-}
-
-async function mapPost(x: PostEntity): Promise<Post> {
-	const content = await unified()
-		.use(remarkParse)
-		.use(remarkRehype)
-		.use(rehypeStringify)
-		.process(x.content);
-
-	return {
-		title: x.title,
-		date: convertDate(x.date, x.hideDay),
-		year: x.date.slice(0, 4),
-		content: content.toString(),
-		tags: x.tags.map((t) => ({ slug: t.slug }))
-	};
-}
-
-function convertDate(input: string, hideDay = false) {
-	const date = new Date(input);
-	const options = {
-		year: 'numeric',
-		month: 'long',
-		...(hideDay ? {} : { day: 'numeric' })
-	} as Intl.DateTimeFormatOptions;
-	return new Intl.DateTimeFormat('it-IT', options).format(date);
 }
