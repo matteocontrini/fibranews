@@ -8,7 +8,10 @@ export async function load() {
 	});
 
 	return {
-		tags: tags.map(mapTag)
+		tags: tags.map(mapTag),
+		seo: {
+			title: 'Tutti gli argomenti'
+		}
 	};
 }
 

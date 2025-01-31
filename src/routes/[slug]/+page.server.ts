@@ -44,6 +44,10 @@ export async function load({ params }) {
 			slug: slug,
 			name: tag.name
 		},
-		postsByYear
+		postsByYear,
+		seo: {
+			title: `Notizie ${tag.name}`,
+			description: `Archivio di notizie su ${tag.name}.`
+		}
 	};
 }

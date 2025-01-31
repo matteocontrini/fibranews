@@ -4,10 +4,6 @@
 	let { data } = $props();
 </script>
 
-<svelte:head>
-	<title>Notizie {data.tag.name}</title>
-</svelte:head>
-
 <div class="container mt-14">
 	<h1 class="text-6xl font-black tracking-wide text-center">
 		<span class="text-violet-700 dark:text-violet-600 font-bold">

@@ -2,10 +2,6 @@
 	let { data } = $props();
 </script>
 
-<svelte:head>
-	<title>Tutti gli argomenti</title>
-</svelte:head>
-
 <div class="container mt-14">
 	<h1 class="text-6xl font-black tracking-wide text-center">
 		<span>

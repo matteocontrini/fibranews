@@ -24,6 +24,17 @@ export async function load({ params }) {
 	}
 
 	return {
-		post: await mapPost(post)
+		post: await mapPost(post),
+		seo: {
+			title: post.title,
+			description: post.content.slice(0, 160) + '...',
+			ogType: 'article',
+			jsonLd: {
+				'@context': 'https://schema.org',
+				'@type': 'NewsArticle',
+				headline: post.title,
+				dateModified: post.updatedAt.toISOString()
+			}
+		}
 	};
 }

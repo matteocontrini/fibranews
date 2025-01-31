@@ -1,15 +1,15 @@
 <script lang="ts">
 	import '@fontsource-variable/inter';
 	import '../app.css';
+	import MetaTags from '$lib/meta-tags.svelte';
 
 	import { ModeWatcher, userPrefersMode } from 'mode-watcher';
 
 	let { children, data } = $props();
 </script>
 
-<!-- TODO: fix meta tags -->
 <svelte:head>
-	<title>Fibra.news</title>
+	<MetaTags />
 </svelte:head>
 
 <ModeWatcher />
