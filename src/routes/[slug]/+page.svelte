@@ -8,9 +8,13 @@
 	<title>Notizie {data.tag.name}</title>
 </svelte:head>
 
-<div class="container mt-16 mb-20">
+<div class="container mt-16">
 	<h1 class="text-center text-6xl font-black tracking-wide">
-		{data.tag.name}
+		<span class="text-violet-700 dark:text-violet-600 font-bold">
+			#
+		</span><span class="pl-1.5">
+		{data.tag.slug}
+		</span>
 	</h1>
 
 	<div class="mt-24">

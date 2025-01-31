@@ -35,6 +35,7 @@ export async function load({ params }) {
 
 	return {
 		tag: {
+			slug: slug,
 			name: tag.name
 		},
 		posts: await Promise.all(
