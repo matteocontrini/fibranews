@@ -31,7 +31,7 @@
 	<div class="ml-8 md:mt-1.5 flex items-center gap-5">
 		{#each data.popularTags as tag}
 			<a class="text-violet-700 dark:text-violet-500 hover:underline"
-				 href="{tag.slug}">
+				 href="/{tag.slug}">
 				#{tag.slug}
 			</a>
 		{/each}
