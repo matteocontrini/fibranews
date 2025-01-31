@@ -14,7 +14,7 @@
 		</span>
 	</h1>
 
-	<div class="mt-20 grid gap-16">
+	<div class="mt-20 grid gap-20">
 		{#each data.posts as post}
 			<Post {post} alwaysShowTags={true} />
 		{/each}

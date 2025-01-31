@@ -23,7 +23,7 @@
 				{year.year}
 			</div>
 
-			<div class="grid gap-16">
+			<div class="grid gap-20">
 				{#each year.posts as post}
 					<Post {post} />
 				{/each}

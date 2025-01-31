@@ -8,7 +8,7 @@
 	/* eslint svelte/no-at-html-tags: "off" */
 </script>
 
-<div class="grid md:grid-cols-12 gap-y-6 max-md:border-b pb-10">
+<div class="grid md:grid-cols-12 gap-y-6 max-md:border-b">
 	<div class="col-span-4">
 		<p class="text-slate-500 dark:text-slate-400 text-xl leading-10">
 			{post.date}
