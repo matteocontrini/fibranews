@@ -1,5 +1,5 @@
-import { PostEntity, PostStatus } from '$lib/server/db/schema';
-import type { Post, PostTag } from '$lib/types';
+import { PostEntity, PostStatus, TagEntity } from '$lib/server/db/schema';
+import type { PopularTag, Post, PostTag } from '$lib/types';
 import rehypeStringify from 'rehype-stringify';
 import remarkParse from 'remark-parse';
 import remarkRehype from 'remark-rehype';
@@ -21,8 +21,22 @@ export async function load() {
 		}
 	});
 
-	// TODO: DRY
+	const popularTags = await TagEntity.createQueryBuilder('tag')
+		.leftJoinAndSelect('tag.posts', 'posts')
+		.groupBy('tag.id, posts.id')
+		.orderBy('COUNT(posts.id)', 'DESC')
+		.limit(3)
+		.getMany();
+
 	return {
+		popularTags: popularTags.map(
+			(x) =>
+				({
+					slug: x.slug,
+					name: x.name
+				}) satisfies PopularTag as PopularTag
+		),
+		// TODO: DRY
 		posts: await Promise.all(
 			posts.map(async (x) => {
 				const content = await unified()

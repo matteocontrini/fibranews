@@ -53,7 +53,7 @@
 						src="https://t0.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://repubblica.it&size=32"
 						alt="" class="size-4">
 					<a class="text-violet-700 dark:text-violet-500 hover:underline"
-						 href="TODO"
+						 href="TODO" rel="external"
 						 target="_blank">
 						Fastweb entra nel mercato dell’energia elettrica nel segno della sostenibilità
 					</a>

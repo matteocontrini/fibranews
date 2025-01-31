@@ -36,7 +36,7 @@
 			Ultime notizie
 		</a>
 		<a href="/" class="hover:underline">
-			Tutti i tag
+			Tutti gli argomenti
 		</a>
 	</div>
 </div>

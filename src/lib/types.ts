@@ -8,3 +8,8 @@ export type Post = {
 export type PostTag = {
 	slug: string;
 };
+
+export type PopularTag = {
+	slug: string;
+	name: string;
+};
