@@ -96,9 +96,6 @@ export class PostEntity extends BaseEntity {
 	@Column('text')
 	content: string;
 
-	@Column('boolean')
-	isKeyEvent: boolean;
-
 	@ManyToMany(() => TagEntity, (tag) => tag.posts)
 	@JoinTable({ name: 'posts_tags' })
 	tags: TagEntity[];
