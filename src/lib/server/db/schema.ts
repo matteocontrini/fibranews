@@ -28,6 +28,12 @@ export class TagEntity extends BaseEntity {
 	@UpdateDateColumn({ type: 'timestamp with time zone' })
 	updatedAt: Date;
 
+	@ManyToOne(() => UserEntity)
+	createdByUser: UserEntity | null;
+
+	@ManyToOne(() => UserEntity)
+	updatedByUser: UserEntity | null;
+
 	@Column('text')
 	name: string;
 
@@ -76,7 +82,14 @@ export class PostEntity extends BaseEntity {
 	@DeleteDateColumn({ type: 'timestamp with time zone' })
 	deletedAt: Date | null;
 
-	// TODO: createdBy, updatedBy, deletedBy
+	@ManyToOne(() => UserEntity)
+	createdByUser: UserEntity | null;
+
+	@ManyToOne(() => UserEntity)
+	updatedByUser: UserEntity | null;
+
+	@ManyToOne(() => UserEntity)
+	deletedByUser: UserEntity | null;
 
 	@Column('text')
 	status: PostStatus;
