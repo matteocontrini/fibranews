@@ -1,9 +1,18 @@
 <script lang="ts">
 	import type { Post } from '$lib/types';
 
-	let { post, alwaysShowTags }: { post: Post, alwaysShowTags?: boolean } = $props();
+	type Props = {
+		post: Post,
+		alwaysShowTags?: boolean
+	}
+
+	let { post, alwaysShowTags }: Props = $props();
 
 	let showSources = $state(false);
+
+	function faviconUrl(domain: string) {
+		return `https://t0.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://${domain}&size=32`;
+	}
 
 	/* eslint svelte/no-at-html-tags: "off" */
 </script>
@@ -53,9 +62,8 @@
 				<ul class:hidden={!showSources} class="space-y-1.5">
 					{#each post.sources as source}
 						<li class="flex gap-2.5">
-							<img
-								src="https://t0.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://{source.domain}&size=32"
-								alt="" class="mt-1.25 size-4">
+							<img src={faviconUrl(source.domain)}
+									 alt="" class="mt-1.25 size-4">
 							<a class="hover:underline"
 								 href="{source.url}" rel="external" target="_blank">
 								{source.title}

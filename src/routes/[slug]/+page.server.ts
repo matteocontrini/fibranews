@@ -14,20 +14,14 @@ export async function load({ params }) {
 		error(404, 'Not found');
 	}
 
-	const posts = await PostEntity.find({
-		where: {
-			deletedAt: IsNull(),
-			tags: { slug },
-			status: PostStatus.PUBLISHED
-		},
-		order: {
-			date: 'DESC'
-		},
-		relations: {
-			tags: true,
-			sources: true
-		}
-	});
+	const posts = await PostEntity.createQueryBuilder('post')
+		.leftJoin('post.tags', 'tag')
+		.leftJoinAndSelect('post.tags', 'tagSelect')
+		.leftJoinAndSelect('post.sources', 'source')
+		.where('tag.slug = :slug', { slug })
+		.andWhere('post.status = :status', { status: PostStatus.PUBLISHED })
+		.orderBy('post.date', 'DESC')
+		.getMany();
 
 	const mappedPosts = await Promise.all(posts.map(mapPost));
 
