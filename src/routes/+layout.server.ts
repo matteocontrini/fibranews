@@ -1,7 +1,7 @@
 import { TagEntity } from '$lib/server/db/schema';
 import type { PopularTag } from '$lib/types';
 
-export async function load() {
+export async function load({ locals }) {
 	const popularTags = await TagEntity.createQueryBuilder('tag')
 		.leftJoinAndSelect('tag.posts', 'posts')
 		.groupBy('tag.id, posts.id')
@@ -10,6 +10,10 @@ export async function load() {
 		.getMany();
 
 	return {
+		user: locals.user ? {
+			name: locals.user.name,
+			photoUrl: locals.user.photoUrl
+		} : null,
 		popularTags: popularTags.map(mapPopularTag)
 	};
 }

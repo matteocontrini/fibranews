@@ -2,10 +2,13 @@
 	import '@fontsource-variable/inter';
 	import '../app.css';
 	import MetaTags from '$lib/meta-tags.svelte';
+	import { page } from '$app/state';
 
 	import { ModeWatcher, userPrefersMode } from 'mode-watcher';
 
 	let { children, data } = $props();
+
+	const isAdminPage = $derived(page.url.pathname.startsWith('/admin'));
 </script>
 
 <svelte:head>
@@ -24,22 +27,33 @@
 		</span>
 	</a>
 
-	<p class="italic md:mr-auto md:ml-6 md:mt-1.5 text-slate-500 text-center">
-		Notizie sulle telecomunicazioni in Italia
-	</p>
+	{#if !isAdminPage}
+		<p class="italic md:mr-auto md:ml-6 md:mt-1.5 text-slate-500 text-center">
+			Notizie sulle telecomunicazioni in Italia
+		</p>
 
-	<div class="md:ml-8 md:mt-1.5 flex items-center justify-center gap-x-5 gap-y-1 flex-wrap">
-		{#each data.popularTags as tag}
+		<div class="md:ml-8 md:mt-1.5 flex items-center justify-center gap-x-5 gap-y-1 flex-wrap">
+			{#each data.popularTags as tag}
+				<a class="text-violet-700 dark:text-violet-500 hover:underline"
+					 href="/{tag.slug}">
+					#{tag.slug}
+				</a>
+			{/each}
 			<a class="text-violet-700 dark:text-violet-500 hover:underline"
-				 href="/{tag.slug}">
-				#{tag.slug}
+				 href="/argomenti">
+				Tutti gli argomenti
 			</a>
-		{/each}
-		<a class="text-violet-700 dark:text-violet-500 hover:underline"
-			 href="/argomenti">
-			Tutti gli argomenti
-		</a>
-	</div>
+		</div>
+	{:else}
+		<p class="md:mr-auto md:ml-8 md:mt-1.5 text-center font-medium text-slate-500 dark:text-slate-400">
+			ADMIN
+		</p>
+
+		<div class="flex items-center gap-x-2.5">
+			<img src={data.user?.photoUrl} alt={data.user?.name} class="h-8 rounded-full">
+			<span>{data.user?.name}</span>
+		</div>
+	{/if}
 </div>
 
 <hr>
