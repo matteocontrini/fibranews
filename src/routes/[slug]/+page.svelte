@@ -1,5 +1,5 @@
 <script lang="ts">
-	import Post from '$lib/Post.svelte';
+	import Post from '$lib/post.svelte';
 
 	let { data } = $props();
 </script>
