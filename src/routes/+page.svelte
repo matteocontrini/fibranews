@@ -4,8 +4,8 @@
 	let { data } = $props();
 </script>
 
-<div class="container mt-16">
-	<h1 class="text-center text-6xl font-black tracking-wide">
+<div class="container mt-14">
+	<h1 class="text-6xl font-black tracking-wide text-center">
 		<span>
 			Ultime
 		</span>
@@ -14,19 +14,7 @@
 		</span>
 	</h1>
 
-	<div class="mt-6 flex flex-wrap justify-center gap-4">
-		<span class="text-slate-500">
-			Popolari:
-		</span>
-		{#each data.popularTags as tag}
-			<a class="text-violet-700 dark:text-violet-500 hover:underline"
-				 href="{tag.slug}">
-				#{tag.slug}
-			</a>
-		{/each}
-	</div>
-
-	<div class="mt-24 grid gap-16 md:gap-24">
+	<div class="mt-20 grid gap-16">
 		{#each data.posts as post}
 			<Post {post} alwaysShowTags={true} />
 		{/each}

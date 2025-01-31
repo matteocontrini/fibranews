@@ -31,7 +31,7 @@
 			</div>
 		{/if}
 
-		<div class="mt-6 prose prose-lg dark:text-slate-300">
+		<div class="mt-6 prose prose-lg prose-slate dark:prose-invert max-w-none">
 			{@html post.content}
 		</div>
 

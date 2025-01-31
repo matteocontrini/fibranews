@@ -4,25 +4,18 @@
 
 	import { ModeWatcher, userPrefersMode } from 'mode-watcher';
 
-	let { children } = $props();
+	let { children, data } = $props();
 </script>
 
+<!-- TODO: fix meta tags -->
 <svelte:head>
 	<title>Fibra.news</title>
 </svelte:head>
 
 <ModeWatcher />
 
-<div class="py-6 container flex items-center">
-	<!--	<a class="px-3.5 py-1 bg-violet-800 text-white rounded-lg text-2xl select-none"-->
-	<!--		 href="/">-->
-	<!--		<span class="font-bold tracking-wider">-->
-	<!--			fibra.-->
-	<!--		</span><span class="font-light">-->
-	<!--			news-->
-	<!--		</span>-->
-	<!--	</a>-->
-	<a class="rounded-lg text-2xl select-none"
+<div class="py-6 container flex items-center justify-between flex-col gap-y-2.5 md:flex-row">
+	<a class="rounded-lg text-4xl md:text-2xl select-none"
 		 href="/">
 		<span class="font-bold tracking-wide text-slate-600 dark:text-slate-400">
 			fibra.
@@ -31,11 +24,19 @@
 		</span>
 	</a>
 
-	<div class="ml-auto font-medium flex gap-8">
-		<a href="/" class="hover:underline">
-			Ultime notizie
-		</a>
-		<a href="/" class="hover:underline">
+	<p class="italic md:mr-auto ml-6 md:mt-1.5 text-slate-500 text-center">
+		Notizie sulle telecomunicazioni in Italia
+	</p>
+
+	<div class="ml-8 md:mt-1.5 flex items-center gap-5">
+		{#each data.popularTags as tag}
+			<a class="text-violet-700 dark:text-violet-500 hover:underline"
+				 href="{tag.slug}">
+				#{tag.slug}
+			</a>
+		{/each}
+		<a class="text-violet-700 dark:text-violet-500 hover:underline"
+			 href="/argomenti">
 			Tutti gli argomenti
 		</a>
 	</div>
