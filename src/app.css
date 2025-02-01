@@ -49,5 +49,9 @@
     &[disabled] {
       @apply cursor-not-allowed opacity-50;
     }
+
+    &.danger {
+      @apply bg-red-700 hover:bg-red-600;
+    }
   }
 }

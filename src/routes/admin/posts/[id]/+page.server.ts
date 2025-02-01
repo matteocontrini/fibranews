@@ -68,7 +68,7 @@ function mapPost(x: PostEntity) {
 }
 
 export const actions = {
-	default: async (event) => {
+	submit: async (event) => {
 		if (!event.locals.user) {
 			return redirect(302, '/admin/login');
 		}
@@ -119,6 +119,30 @@ export const actions = {
 
 			return message(form, { text: 'Post salvato!', success: true });
 		}
+	},
+	delete: async (event) => {
+		if (!event.locals.user) {
+			return redirect(302, '/admin/login');
+		}
+
+		const { id } = event.params;
+
+		const post = await PostEntity.findOne({
+			where: {
+				id: +id
+			}
+		});
+
+		if (!post) {
+			return error(404, 'Post non trovato');
+		}
+
+		post.deletedAt = new Date();
+		post.deletedByUser = event.locals.user;
+
+		await post.save();
+
+		return redirect(302, '/admin');
 	}
 };
 

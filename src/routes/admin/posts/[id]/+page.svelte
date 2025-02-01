@@ -6,7 +6,7 @@
 	import autosize from 'svelte-autosize';
 	import { toast } from 'svelte-sonner';
 	import slugify from 'slugify';
-	import { CheckIcon, SaveIcon } from 'lucide-svelte';
+	import { CheckIcon, SaveIcon, Trash2Icon } from 'lucide-svelte';
 	import { browser } from '$app/environment';
 	import MultiSelect from 'svelte-multiselect';
 
@@ -43,10 +43,19 @@
 	const { form: formData, capture, restore, tainted, isTainted, enhance } = form;
 
 	export const snapshot = { capture, restore };
+
+	let deleteForm: HTMLFormElement;
+
+	function confirmDelete(e: Event) {
+		e.preventDefault();
+		if (confirm(`Sei sicuro di voler eliminare il post “${$formData.title}”?`)) {
+			deleteForm.submit();
+		}
+	}
 </script>
 
 <div class="container mt-14">
-	<form method="POST" use:enhance class="grid gap-4">
+	<form method="POST" action="?/submit" use:enhance class="grid gap-4">
 		<!-- Title -->
 		<Field {form} name="title">
 			<Control>
@@ -239,6 +248,14 @@
 				<CheckIcon class="size-4" />
 				Crea post
 			{/if}
+		</button>
+	</form>
+
+	<form method="POST" action="?/delete" bind:this={deleteForm}>
+		<button class="button danger w-full mt-4 flex items-center gap-x-2 justify-center"
+						onclick={confirmDelete}>
+			<Trash2Icon class="size-4" />
+			Elimina post
 		</button>
 	</form>
 
