@@ -12,6 +12,7 @@
 	let { data } = $props();
 
 	const form = superForm(data.form, {
+		resetForm: false,
 		validators: zodClient(schema),
 		onUpdated({ form }) {
 			if (form.message) {
