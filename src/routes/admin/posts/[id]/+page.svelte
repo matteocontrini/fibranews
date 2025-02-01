@@ -8,11 +8,13 @@
 	import slugify from 'slugify';
 	import { CheckIcon, SaveIcon } from 'lucide-svelte';
 	import { browser } from '$app/environment';
+	import MultiSelect from 'svelte-multiselect';
 
 	let { data } = $props();
 
 	const form = superForm(data.form, {
 		resetForm: false,
+		dataType: 'json',
 		validators: zodClient(schema),
 		onUpdated({ form }) {
 			if (form.message) {
@@ -150,6 +152,43 @@
 								</Field>
 							</div>
 
+							<FieldErrors class="mt-2 text-sm text-red-500" />
+						</div>
+					</div>
+				{/snippet}
+			</Control>
+		</Field>
+
+		<!-- Tags -->
+		<Field {form} name="tags">
+			<Control>
+				{#snippet children({ props })}
+					<div class="grid sm:grid-cols-12 gap-4">
+						<div class="col-span-3">
+							<Label class="font-medium text-lg">Tag:</Label>
+						</div>
+
+						<div class="col-span-9">
+							<MultiSelect {...props}
+													 bind:selected={$formData.tags}
+													 options={data.allTags}
+													 allowUserOptions={true}
+													 createOptionMsg="Crea questo tag..."
+													 --sms-min-height="42px"
+													 outerDivClass="!border !border-slate-200 dark:!border-slate-700 !px-3 !rounded-md
+															focus-within:!border-violet-700 dark:focus-within:!border-violet-600
+															focus-within:!outline focus-within:!outline-violet-700 dark:focus-within:!outline-violet-600"
+													 ulSelectedClass="!mx-2"
+													 liSelectedClass="!bg-violet-700 dark:!bg-violet-600 !text-white !rounded-md"
+													 --sms-remove-btn-hover-color="var(--color-violet-700)"
+													 --sms-remove-btn-hover-bg="white"
+													 ulOptionsClass="!border !border-slate-200 dark:!border-slate-700 !top-[calc(100%+4px)]
+                              !bg-white dark:!bg-slate-900"
+													 --sms-options-border-radius="var(--radius-md)"
+													 liOptionClass="!py-1.5"
+													 liActiveOptionClass="!bg-violet-700 dark:!bg-violet-600 !text-white"
+													 liActiveUserMsgClass="!bg-violet-700 dark:!bg-violet-600 !text-white"
+							/>
 							<FieldErrors class="mt-2 text-sm text-red-500" />
 						</div>
 					</div>

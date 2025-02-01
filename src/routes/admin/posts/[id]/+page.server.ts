@@ -1,8 +1,9 @@
 import { error, fail, redirect } from '@sveltejs/kit';
-import { PostEntity, PostStatus } from '$lib/server/db/schema';
+import { PostEntity, PostStatus, TagEntity, UserEntity } from '$lib/server/db/schema';
 import { message, superValidate } from 'sveltekit-superforms';
 import { zod } from 'sveltekit-superforms/adapters';
 import { schema } from './form';
+import { In } from 'typeorm';
 
 export async function load({ params, locals }) {
 	if (!locals.user) {
@@ -11,9 +12,19 @@ export async function load({ params, locals }) {
 
 	const { id } = params;
 
+	const allTags = (
+		await TagEntity.find({
+			select: ['slug'],
+			order: {
+				slug: 'ASC'
+			}
+		})
+	).map((t) => t.slug);
+
 	if (id === 'new') {
 		return {
 			postId: null,
+			allTags,
 			form: await superValidate(zod(schema)),
 			seo: {
 				title: 'Nuovo post'
@@ -24,6 +35,9 @@ export async function load({ params, locals }) {
 	const post = await PostEntity.findOne({
 		where: {
 			id: +id
+		},
+		relations: {
+			tags: true
 		}
 	});
 
@@ -33,6 +47,7 @@ export async function load({ params, locals }) {
 
 	return {
 		postId: post.id,
+		allTags,
 		form: await superValidate(mapPost(post), zod(schema)),
 		seo: {
 			title: `Modifica “${post.title}”`
@@ -47,7 +62,8 @@ function mapPost(x: PostEntity) {
 		content: x.content,
 		published: x.status === PostStatus.PUBLISHED,
 		date: x.date,
-		hideDay: x.hideDay
+		hideDay: x.hideDay,
+		tags: x.tags.map((t) => t.slug)
 	};
 }
 
@@ -75,6 +91,7 @@ export const actions = {
 			post.slug = form.data.slug;
 			post.date = form.data.date;
 			post.hideDay = form.data.hideDay;
+			post.tags = await queryOrCreateTags(form.data.tags, event.locals.user);
 
 			await post.save();
 
@@ -96,6 +113,7 @@ export const actions = {
 			post.date = form.data.date;
 			post.hideDay = form.data.hideDay;
 			post.updatedByUser = event.locals.user;
+			post.tags = await queryOrCreateTags(form.data.tags, event.locals.user);
 
 			await post.save();
 
@@ -103,3 +121,31 @@ export const actions = {
 		}
 	}
 };
+
+async function queryOrCreateTags(tags: string[], user: UserEntity) {
+	if (!tags.length) {
+		return [];
+	}
+
+	const tagEntities = await TagEntity.find({
+		where: {
+			slug: In(tags)
+		}
+	});
+
+	for (const tag of tags) {
+		if (tagEntities.some((et) => et.slug === tag)) {
+			continue;
+		}
+
+		const newTag = new TagEntity();
+		newTag.createdByUser = user;
+		newTag.updatedByUser = user;
+		newTag.name = tag;
+		newTag.slug = tag;
+		await newTag.save();
+		tagEntities.push(newTag);
+	}
+
+	return tagEntities;
+}

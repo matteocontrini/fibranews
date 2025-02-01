@@ -50,10 +50,10 @@
 					</span>
 				</div>
 
-				<div class="md:col-span-2 text-slate-500 dark:text-slate-400">
+				<div class="md:col-span-2 text-slate-500 dark:text-slate-400 flex flex-wrap gap-x-1.5">
 					{#each post.tags as tag}
 						<span>
-						  #{tag.slug}&nbsp;
+						  #{tag.slug}
 						</span>
 					{/each}
 				</div>
