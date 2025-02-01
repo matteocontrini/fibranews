@@ -66,7 +66,7 @@
 							<input {...props} type="text" bind:value={$formData.slug} readonly={data.postId != null} />
 							<Description class="mt-2 text-xs text-slate-500 dark:text-slate-400">
 								<code>
-									https://fibra.news/TODO/{$formData.slug}
+									https://fibra.news/{$formData.date.slice(0, 4) || '?'}/{$formData.slug}
 								</code>
 							</Description>
 							<FieldErrors class="mt-2 text-sm text-red-500" />
