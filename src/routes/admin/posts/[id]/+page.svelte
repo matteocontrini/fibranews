@@ -63,7 +63,7 @@
 						</div>
 
 						<div class="col-span-9">
-							<input {...props} type="text" bind:value={$formData.slug} disabled={data.postId != null} />
+							<input {...props} type="text" bind:value={$formData.slug} readonly={data.postId != null} />
 							<Description class="mt-2 text-xs text-slate-500 dark:text-slate-400">
 								<code>
 									https://fibra.news/TODO/{$formData.slug}
@@ -95,6 +95,45 @@
 									Puoi usare Markdown per formattare il testo.
 								</p>
 							</Description>
+							<FieldErrors class="mt-2 text-sm text-red-500" />
+						</div>
+					</div>
+				{/snippet}
+			</Control>
+		</Field>
+
+		<!-- Date -->
+		<Field {form} name="date">
+			<Control>
+				{#snippet children({ props })}
+					<div class="grid grid-cols-12 gap-4">
+						<div class="col-span-3">
+							<Label class="font-medium text-lg">Data:</Label>
+						</div>
+
+						<div class="col-span-9">
+							<div class="flex items-center gap-x-4">
+								<input {...props}
+											 bind:value={$formData.date}
+											 type="date" />
+
+								<Field {form} name="hideDay">
+									<Control>
+										{#snippet children({ props })}
+											<Label class="flex items-center gap-x-2.5 cursor-pointer
+																	rounded-md border border-slate-200 dark:border-slate-700 py-2 px-4
+																	has-checked:bg-violet-700 dark:has-checked:bg-violet-600 has-checked:text-white">
+												<input {...props}
+															 bind:checked={$formData.hideDay}
+															 type="checkbox" />
+												Nascondi giorno
+												<FieldErrors class="text-sm text-red-500 empty:hidden" />
+											</Label>
+										{/snippet}
+									</Control>
+								</Field>
+							</div>
+
 							<FieldErrors class="mt-2 text-sm text-red-500" />
 						</div>
 					</div>

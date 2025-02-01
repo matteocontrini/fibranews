@@ -46,6 +46,8 @@ function mapPost(x: PostEntity) {
 		slug: x.slug,
 		content: x.content,
 		published: x.status === PostStatus.PUBLISHED,
+		date: x.date,
+		hideDay: x.hideDay
 	};
 }
 
@@ -55,7 +57,7 @@ export const actions = {
 			return redirect(302, '/admin/login');
 		}
 
-		const form = await superValidate(event, zod(schema));
+		const form = await superValidate(event, zod(schema), { strict: true });
 
 		if (!form.valid) {
 			return fail(400, { form });
@@ -71,8 +73,8 @@ export const actions = {
 			post.updatedByUser = event.locals.user;
 			post.status = form.data.published ? PostStatus.PUBLISHED : PostStatus.DRAFT;
 			post.slug = form.data.slug;
-			post.date = '2025-01-01';
-			post.hideDay = false;
+			post.date = form.data.date;
+			post.hideDay = form.data.hideDay;
 
 			await post.save();
 
@@ -91,6 +93,8 @@ export const actions = {
 			post.title = form.data.title;
 			post.content = form.data.content;
 			post.status = form.data.published ? PostStatus.PUBLISHED : PostStatus.DRAFT;
+			post.date = form.data.date;
+			post.hideDay = form.data.hideDay;
 			post.updatedByUser = event.locals.user;
 
 			await post.save();

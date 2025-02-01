@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { PlusCircleIcon, PlusIcon } from 'lucide-svelte';
+	import { PlusCircleIcon } from 'lucide-svelte';
 
 	let { data } = $props();
 </script>
