@@ -149,6 +149,7 @@
 										{#snippet children({ props })}
 											<Label class="max-sm:w-full flex items-center justify-center gap-x-2.5 cursor-pointer
 																	rounded-md border border-slate-200 dark:border-slate-700 py-2 px-4
+																	has-checked:border-violet-700 dark:has-checked:border-violet-600
 																	has-checked:bg-violet-700 dark:has-checked:bg-violet-600 has-checked:text-white">
 												<input {...props}
 															 bind:checked={$formData.hideDay}
@@ -217,7 +218,7 @@
 							{#snippet children({ props })}
 								<Label class="w-full rounded-l-md border border-slate-200 dark:border-slate-700 py-2 px-4
                               flex items-center justify-center gap-x-2.5 cursor-pointer
-                              {$formData.published ? 'bg-violet-700 dark:bg-violet-600 text-white' : ''}">
+                              {$formData.published ? 'bg-violet-700 dark:bg-violet-600 text-white border-violet-700 dark:border-violet-600' : ''}">
 									<input {...props} type="radio" bind:group={$formData.published} value={true} />
 									Pubblicato
 								</Label>
@@ -227,7 +228,7 @@
 							{#snippet children({ props })}
 								<Label class="w-full rounded-r-md border-r border-y border-slate-200 dark:border-slate-700 py-2 px-4
 															flex items-center justify-center gap-x-2.5 cursor-pointer
-                              {!$formData.published ? 'bg-violet-700 dark:bg-violet-600 text-white' : ''}">
+                              {!$formData.published ? 'bg-violet-700 dark:bg-violet-600 text-white border-violet-700 dark:border-violet-600' : ''}">
 									<input {...props} type="radio" bind:group={$formData.published} value={false} />
 									Bozza
 								</Label>
