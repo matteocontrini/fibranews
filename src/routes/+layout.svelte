@@ -66,7 +66,7 @@
 
 <hr class="mt-20">
 
-<footer class="container py-12 flex">
+<footer class="container py-12 flex flex-col sm:flex-row items-center gap-4 justify-between">
 	<div>
 		<a href="https://creativecommons.org/licenses/by/4.0/deed.it" rel="external"
 			 class="font-medium text-violet-700 dark:text-violet-500 hover:underline">
@@ -74,10 +74,9 @@
 		</a>
 	</div>
 
-	<select class="rounded-md ml-auto"
-					bind:value={$userPrefersMode}>
-		<option value="system">Auto</option>
-		<option value="light">Light</option>
-		<option value="dark">Dark</option>
+	<select class="rounded-md" bind:value={$userPrefersMode}>
+		<option value="system">Tema automatico</option>
+		<option value="light">Tema chiaro</option>
+		<option value="dark">Tema scuro</option>
 	</select>
 </footer>

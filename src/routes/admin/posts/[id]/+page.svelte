@@ -65,7 +65,7 @@
 			</Control>
 		</Field>
 
-		<button type="submit" disabled={!isTainted($tainted)}>
+		<button class="button" type="submit" disabled={!isTainted($tainted)}>
 			{#if data.postId}
 				Salva
 			{:else}
