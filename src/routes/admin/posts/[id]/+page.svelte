@@ -5,6 +5,8 @@
 	import { Field, Control, Label, Description, FieldErrors, Legend } from 'formsnap';
 	import autosize from 'svelte-autosize';
 	import { toast } from 'svelte-sonner';
+	import slugify from 'slugify';
+	import { CheckIcon, SaveIcon } from 'lucide-svelte';
 
 	let { data } = $props();
 
@@ -18,6 +20,11 @@
 					toast(form.message.text);
 				}
 			}
+		},
+		onChange(event) {
+			if (!data.postId && event.paths.includes('title')) {
+				$formData.slug = slugify(event.get('title'), { lower: true, strict: true });
+			}
 		}
 	});
 
@@ -28,6 +35,7 @@
 
 <div class="container mt-14">
 	<form method="POST" class="grid gap-4">
+		<!-- Title -->
 		<Field {form} name="title">
 			<Control>
 				{#snippet children({ props })}
@@ -45,6 +53,30 @@
 			</Control>
 		</Field>
 
+		<!-- Slug -->
+		<Field {form} name="slug">
+			<Control>
+				{#snippet children({ props })}
+					<div class="grid grid-cols-12 gap-4">
+						<div class="col-span-3">
+							<Label class="font-medium text-lg">Slug:</Label>
+						</div>
+
+						<div class="col-span-9">
+							<input {...props} type="text" bind:value={$formData.slug} disabled={data.postId != null} />
+							<Description class="mt-2 text-xs text-slate-500 dark:text-slate-400">
+								<code>
+									https://fibra.news/TODO/{$formData.slug}
+								</code>
+							</Description>
+							<FieldErrors class="mt-2 text-sm text-red-500" />
+						</div>
+					</div>
+				{/snippet}
+			</Control>
+		</Field>
+
+		<!-- Content -->
 		<Field {form} name="content">
 			<Control>
 				{#snippet children({ props })}
@@ -70,6 +102,7 @@
 			</Control>
 		</Field>
 
+		<!-- Post status -->
 		<Field {form} name="published">
 			<div class="grid grid-cols-12 gap-4">
 				<div class="col-span-3">
@@ -103,11 +136,13 @@
 			</div>
 		</Field>
 
-		<button class="button mt-4"
+		<button class="button mt-4 flex items-center gap-x-2 justify-center"
 						type="submit" disabled={!isTainted($tainted)}>
 			{#if data.postId}
+				<SaveIcon class="size-4" />
 				Salva
 			{:else}
+				<CheckIcon class="size-4" />
 				Crea post
 			{/if}
 		</button>

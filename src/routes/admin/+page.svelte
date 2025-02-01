@@ -1,10 +1,14 @@
 <script lang="ts">
+	import { PlusCircleIcon, PlusIcon } from 'lucide-svelte';
+
 	let { data } = $props();
 </script>
 
 <div class="container mt-14">
 	<div class="flex flex-col md:flex-row gap-4">
-		<a class="button" href="/admin/posts/new">
+		<a class="button flex items-center gap-x-2"
+			 href="/admin/posts/new">
+			<PlusCircleIcon class="size-4" />
 			Nuovo post
 		</a>
 

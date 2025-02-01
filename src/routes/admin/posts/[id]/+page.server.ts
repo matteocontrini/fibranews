@@ -43,8 +43,9 @@ export async function load({ params, locals }) {
 function mapPost(x: PostEntity) {
 	return {
 		title: x.title,
+		slug: x.slug,
 		content: x.content,
-		published: x.status === PostStatus.PUBLISHED
+		published: x.status === PostStatus.PUBLISHED,
 	};
 }
 
@@ -69,7 +70,7 @@ export const actions = {
 			post.createdByUser = event.locals.user;
 			post.updatedByUser = event.locals.user;
 			post.status = form.data.published ? PostStatus.PUBLISHED : PostStatus.DRAFT;
-			post.slug = post.title.toLowerCase().replace(/[^a-z0-9]/g, '-');
+			post.slug = form.data.slug;
 			post.date = '2025-01-01';
 			post.hideDay = false;
 
