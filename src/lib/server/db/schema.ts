@@ -40,7 +40,9 @@ export class TagEntity extends BaseEntity {
 	@Column('text', { unique: true })
 	slug: string;
 
-	@ManyToMany(() => PostEntity, (post) => post.tags)
+	@ManyToMany(() => PostEntity, (post) => post.tags, {
+		onDelete: 'CASCADE'
+	})
 	posts: PostEntity[];
 }
 
