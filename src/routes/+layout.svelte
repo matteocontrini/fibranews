@@ -45,9 +45,10 @@
 			</a>
 		</div>
 	{:else}
-		<p class="md:mr-auto md:ml-8 md:mt-1.5 text-center font-medium text-slate-500 dark:text-slate-400">
+		<a class="md:mr-auto md:ml-8 md:mt-1.5 text-center font-medium text-slate-500 dark:text-slate-400"
+			 href="/admin">
 			ADMIN
-		</p>
+		</a>
 
 		<div class="flex items-center gap-x-2.5">
 			<img src={data.user?.photoUrl} alt={data.user?.name} class="h-8 rounded-full">

@@ -21,4 +21,8 @@
   hr {
     @apply border-t-slate-200 dark:border-slate-800;
   }
+
+  input[type="search"] {
+    outline: none;
+  }
 }

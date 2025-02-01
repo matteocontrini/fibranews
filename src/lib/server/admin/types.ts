@@ -3,6 +3,7 @@ export type AdminPost = {
 	title: string;
 	slug: string;
 	date: string;
+	year: string;
 	hideDay: boolean;
 	tags: AdminPostTag[];
 };
