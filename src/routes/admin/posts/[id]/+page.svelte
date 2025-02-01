@@ -7,6 +7,7 @@
 	import { toast } from 'svelte-sonner';
 	import slugify from 'slugify';
 	import { CheckIcon, SaveIcon } from 'lucide-svelte';
+	import { browser } from '$app/environment';
 
 	let { data } = $props();
 
@@ -25,16 +26,24 @@
 			if (!data.postId && event.paths.includes('title')) {
 				$formData.slug = slugify(event.get('title'), { lower: true, strict: true });
 			}
+		},
+		onError({ result }) {
+			console.error(result);
+			if (result.error.message) {
+				toast.error('Errore: ' + result.error.message);
+			} else {
+				toast.error('Errore sconosciuto');
+			}
 		}
 	});
 
-	const { form: formData, capture, restore, tainted, isTainted } = form;
+	const { form: formData, capture, restore, tainted, isTainted, enhance } = form;
 
 	export const snapshot = { capture, restore };
 </script>
 
 <div class="container mt-14">
-	<form method="POST" class="grid gap-4">
+	<form method="POST" use:enhance class="grid gap-4">
 		<!-- Title -->
 		<Field {form} name="title">
 			<Control>
@@ -187,7 +196,9 @@
 		</button>
 	</form>
 
-	<!--	<div class="mt-8">-->
-	<!--		<SuperDebug data={$formData} />-->
-	<!--	</div>-->
+	{#if browser}
+		<div class="mt-16">
+			<SuperDebug data={$formData} />
+		</div>
+	{/if}
 </div>
