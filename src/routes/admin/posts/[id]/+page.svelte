@@ -55,7 +55,11 @@
 						</div>
 
 						<div class="col-span-9">
-							<input {...props} type="text" bind:value={$formData.title} />
+							<textarea {...props}
+												bind:value={$formData.title}
+												rows={1}
+												use:autosize
+												class="text-xl"></textarea>
 							<FieldErrors class="mt-2 text-sm text-red-500" />
 						</div>
 					</div>
@@ -99,7 +103,8 @@
 							<textarea {...props}
 												bind:value={$formData.content}
 												rows={8}
-												use:autosize></textarea>
+												use:autosize
+												class="text-lg"></textarea>
 							<Description class="mt-2 text-sm text-slate-500 dark:text-slate-400">
 								<p>
 									Puoi usare Markdown per formattare il testo.
