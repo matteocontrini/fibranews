@@ -21,3 +21,9 @@ function mapTag(x: TagEntity) {
 		name: x.name
 	};
 }
+
+export const config = {
+	isr: {
+		expiration: 60
+	}
+};
