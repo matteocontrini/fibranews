@@ -2,7 +2,7 @@
 	import SuperDebug, { superForm } from 'sveltekit-superforms';
 	import { schema } from './form';
 	import { zodClient } from 'sveltekit-superforms/adapters';
-	import { Field, Control, Label, Description, FieldErrors } from 'formsnap';
+	import { Field, Control, Label, Description, FieldErrors, Legend } from 'formsnap';
 	import autosize from 'svelte-autosize';
 	import { toast } from 'svelte-sonner';
 
@@ -58,6 +58,11 @@
 												bind:value={$formData.content}
 												rows={8}
 												use:autosize></textarea>
+							<Description class="mt-2 text-sm text-slate-500 dark:text-slate-400">
+								<p>
+									Puoi usare Markdown per formattare il testo.
+								</p>
+							</Description>
 							<FieldErrors class="mt-2 text-sm text-red-500" />
 						</div>
 					</div>
@@ -65,7 +70,41 @@
 			</Control>
 		</Field>
 
-		<button class="button" type="submit" disabled={!isTainted($tainted)}>
+		<Field {form} name="published">
+			<div class="grid grid-cols-12 gap-4">
+				<div class="col-span-3">
+					<Legend class="font-medium text-lg">Stato:</Legend>
+				</div>
+				<div class="col-span-9">
+					<div class="flex">
+						<Control>
+							{#snippet children({ props })}
+								<Label class="rounded-l-md border border-slate-200 dark:border-slate-700 py-2 px-4
+                              flex items-center gap-x-2.5 cursor-pointer
+                              {$formData.published ? 'bg-violet-700 dark:bg-violet-600 text-white' : ''}">
+									<input {...props} type="radio" bind:group={$formData.published} value={true} />
+									Pubblicato
+								</Label>
+							{/snippet}
+						</Control>
+						<Control>
+							{#snippet children({ props })}
+								<Label class="rounded-r-md border-r border-y border-slate-200 dark:border-slate-700 py-2 px-4
+															flex items-center gap-x-2.5 cursor-pointer
+                              {!$formData.published ? 'bg-violet-700 dark:bg-violet-600 text-white' : ''}">
+									<input {...props} type="radio" bind:group={$formData.published} value={false} />
+									Bozza
+								</Label>
+							{/snippet}
+						</Control>
+					</div>
+					<FieldErrors class="mt-2 text-sm text-red-500" />
+				</div>
+			</div>
+		</Field>
+
+		<button class="button mt-4"
+						type="submit" disabled={!isTainted($tainted)}>
 			{#if data.postId}
 				Salva
 			{:else}

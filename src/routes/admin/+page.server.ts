@@ -41,6 +41,7 @@ function mapPost(x: PostEntity): AdminPost {
 		id: x.id,
 		title: x.title,
 		slug: x.slug,
+		status: x.status,
 		date: convertDate(x.date, false),
 		year: x.date.slice(0, 4),
 		hideDay: x.hideDay,

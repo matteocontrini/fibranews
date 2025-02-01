@@ -32,6 +32,11 @@
 				</div>
 
 				<div class="md:col-span-7">
+					{#if post.status === 'draft'}
+						<span class="font-medium text-violet-700 dark:text-violet-500 pr-1">
+							[Bozza]
+						</span>
+					{/if}
 					<span class="font-medium">
 						{post.title}
 					</span>
