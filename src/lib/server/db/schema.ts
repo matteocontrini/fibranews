@@ -37,7 +37,7 @@ export class TagEntity extends BaseEntity {
 	@Column('text')
 	name: string;
 
-	@Column('text')
+	@Column('text', { unique: true })
 	slug: string;
 
 	@ManyToMany(() => PostEntity, (post) => post.tags)
