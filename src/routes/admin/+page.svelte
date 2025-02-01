@@ -3,18 +3,23 @@
 </script>
 
 <div class="container mt-14">
-	<form>
-		<!-- svelte-ignore a11y_autofocus -->
-		<input type="search" autofocus
-					 name="q" value={data.q}
-					 class="w-full rounded-md border border-slate-200 dark:border-slate-700 py-2 px-4"
-					 placeholder="Cerca un post..." />
-	</form>
+	<div class="flex flex-col md:flex-row gap-4">
+		<a class="button" href="/admin/posts/new">
+			Nuovo post
+		</a>
+
+		<form class="grow">
+			<!-- svelte-ignore a11y_autofocus -->
+			<input type="search" autofocus
+						 name="q" value={data.q}
+						 placeholder="Cerca un post..." />
+		</form>
+	</div>
 
 	<div class="grid gap-4 mt-8">
 		{#each data.posts as post}
 			<a class="border rounded-md px-4 py-2.5 grid md:grid-cols-12 gap-y-4"
-				 href="/admin/post/{post.id}">
+				 href="/admin/posts/{post.id}">
 				<div class="text-slate-500 dark:text-slate-400 md:col-span-3 md:grid">
 					<span class="font-medium">
 						{post.date}

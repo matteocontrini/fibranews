@@ -20,7 +20,7 @@ export async function load({ params }) {
 	});
 
 	if (!post) {
-		error(404, 'Not found');
+		error(404, 'Post non trovato');
 	}
 
 	return {

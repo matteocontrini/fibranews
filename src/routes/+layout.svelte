@@ -5,6 +5,7 @@
 	import { page } from '$app/state';
 
 	import { ModeWatcher, userPrefersMode } from 'mode-watcher';
+	import { Toaster } from 'svelte-sonner';
 
 	let { children, data } = $props();
 
@@ -16,6 +17,8 @@
 </svelte:head>
 
 <ModeWatcher />
+
+<Toaster theme={$userPrefersMode} richColors position="bottom-center" />
 
 <div class="py-6 container flex items-center justify-between flex-col gap-y-2.5 md:flex-row">
 	<a class="rounded-lg text-4xl md:text-2xl select-none"

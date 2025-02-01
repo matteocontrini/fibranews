@@ -12,6 +12,10 @@
 			Pagina non trovata
 		</h1>
 
+		<p class="text-center text-lg">
+			{page.error?.message}
+		</p>
+
 <!--		<p class="text-center text-lg">-->
 <!--			TODO: contatti-->
 <!--		</p>-->

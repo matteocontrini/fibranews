@@ -10,7 +10,7 @@ export async function load({ params }) {
 	});
 
 	if (!tag) {
-		error(404, 'Not found');
+		error(404, 'Tag non trovato');
 	}
 
 	const posts = await PostEntity.createQueryBuilder('post')

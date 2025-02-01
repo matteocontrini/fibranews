@@ -22,7 +22,20 @@
     @apply border-t-slate-200 dark:border-slate-800;
   }
 
-  input[type="search"] {
-    outline: none;
+  input[type="search"], input[type="text"], textarea {
+    @apply w-full rounded-md border border-slate-200 dark:border-slate-700 py-2 px-4
+    focus:border-violet-700 dark:focus:border-violet-600
+    focus:outline focus:outline-violet-700 dark:focus:outline-violet-600;
+  }
+
+  button, a.button {
+    @apply rounded-md py-2 px-4 cursor-pointer text-center font-medium
+    bg-violet-700 dark:bg-violet-600 text-white
+    hover:bg-violet-600 dark:hover:bg-violet-500
+    transition-colors;
+
+    &[disabled] {
+      @apply cursor-not-allowed opacity-50;
+    }
   }
 }
