@@ -51,3 +51,9 @@ export async function load({ params }) {
 		}
 	};
 }
+
+export const config = {
+	isr: {
+		expiration: 60
+	}
+};
