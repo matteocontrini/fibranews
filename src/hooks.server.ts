@@ -1,19 +1,15 @@
 import 'reflect-metadata';
 import { dataSource } from '$lib/server/db';
-import type { Handle } from '@sveltejs/kit';
+import { type Handle } from '@sveltejs/kit';
 import { SessionEntity } from '$lib/server/db/schema';
 
-dataSource
-	.initialize()
-	.then(() => {
-		// TODO: use a logger
-		console.log('Database initialized');
-	})
-	.catch((error) => {
-		console.error('Database initialization failed', error);
-	});
-
 export const handle: Handle = async ({ event, resolve }) => {
+	if (!dataSource.isInitialized) {
+		console.log('Initializing database...');
+		await dataSource.initialize();
+		console.log('Database initialized');
+	}
+
 	const token = event.cookies.get('fibranews_session');
 
 	if (!token) {
