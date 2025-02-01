@@ -27,7 +27,7 @@ export async function mapPost(x: PostEntity): Promise<Post> {
 	};
 }
 
-function convertDate(input: string, hideDay = false) {
+export function convertDate(input: string, hideDay = false) {
 	const date = new Date(input);
 	const options = {
 		year: 'numeric',
