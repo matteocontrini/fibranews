@@ -48,7 +48,7 @@
 		<Field {form} name="title">
 			<Control>
 				{#snippet children({ props })}
-					<div class="grid grid-cols-12 gap-4">
+					<div class="grid sm:grid-cols-12 gap-4">
 						<div class="col-span-3">
 							<Label class="font-medium text-lg">Titolo:</Label>
 						</div>
@@ -66,7 +66,7 @@
 		<Field {form} name="slug">
 			<Control>
 				{#snippet children({ props })}
-					<div class="grid grid-cols-12 gap-4">
+					<div class="grid sm:grid-cols-12 gap-4">
 						<div class="col-span-3">
 							<Label class="font-medium text-lg">Slug:</Label>
 						</div>
@@ -89,7 +89,7 @@
 		<Field {form} name="content">
 			<Control>
 				{#snippet children({ props })}
-					<div class="grid grid-cols-12 gap-4">
+					<div class="grid sm:grid-cols-12 gap-4">
 						<div class="col-span-3">
 							<Label class="font-medium text-lg">Contenuto:</Label>
 						</div>
@@ -115,21 +115,22 @@
 		<Field {form} name="date">
 			<Control>
 				{#snippet children({ props })}
-					<div class="grid grid-cols-12 gap-4">
+					<div class="grid sm:grid-cols-12 gap-4">
 						<div class="col-span-3">
 							<Label class="font-medium text-lg">Data:</Label>
 						</div>
 
 						<div class="col-span-9">
-							<div class="flex items-center gap-x-4">
+							<div class="flex items-center flex-col sm:flex-row gap-4">
 								<input {...props}
 											 bind:value={$formData.date}
-											 type="date" />
+											 type="date"
+											 class="max-sm:w-full text-center" />
 
 								<Field {form} name="hideDay">
 									<Control>
 										{#snippet children({ props })}
-											<Label class="flex items-center gap-x-2.5 cursor-pointer
+											<Label class="max-sm:w-full flex items-center justify-center gap-x-2.5 cursor-pointer
 																	rounded-md border border-slate-200 dark:border-slate-700 py-2 px-4
 																	has-checked:bg-violet-700 dark:has-checked:bg-violet-600 has-checked:text-white">
 												<input {...props}
@@ -152,7 +153,7 @@
 
 		<!-- Post status -->
 		<Field {form} name="published">
-			<div class="grid grid-cols-12 gap-4">
+			<div class="grid sm:grid-cols-12 gap-4">
 				<div class="col-span-3">
 					<Legend class="font-medium text-lg">Stato:</Legend>
 				</div>
@@ -160,8 +161,8 @@
 					<div class="flex">
 						<Control>
 							{#snippet children({ props })}
-								<Label class="rounded-l-md border border-slate-200 dark:border-slate-700 py-2 px-4
-                              flex items-center gap-x-2.5 cursor-pointer
+								<Label class="w-full rounded-l-md border border-slate-200 dark:border-slate-700 py-2 px-4
+                              flex items-center justify-center gap-x-2.5 cursor-pointer
                               {$formData.published ? 'bg-violet-700 dark:bg-violet-600 text-white' : ''}">
 									<input {...props} type="radio" bind:group={$formData.published} value={true} />
 									Pubblicato
@@ -170,8 +171,8 @@
 						</Control>
 						<Control>
 							{#snippet children({ props })}
-								<Label class="rounded-r-md border-r border-y border-slate-200 dark:border-slate-700 py-2 px-4
-															flex items-center gap-x-2.5 cursor-pointer
+								<Label class="w-full rounded-r-md border-r border-y border-slate-200 dark:border-slate-700 py-2 px-4
+															flex items-center justify-center gap-x-2.5 cursor-pointer
                               {!$formData.published ? 'bg-violet-700 dark:bg-violet-600 text-white' : ''}">
 									<input {...props} type="radio" bind:group={$formData.published} value={false} />
 									Bozza
