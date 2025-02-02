@@ -21,6 +21,7 @@ export async function load({ params }) {
 		.andWhere('post.status = :status', { status: PostStatus.PUBLISHED })
 		.andWhere('post.deletedAt IS NULL')
 		.orderBy('post.date', 'DESC')
+		.addOrderBy('source.order', 'ASC')
 		.getMany();
 
 	const mappedPosts = await Promise.all(posts.map(mapPost));

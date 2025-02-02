@@ -10,7 +10,10 @@ export async function load() {
 			status: PostStatus.PUBLISHED
 		},
 		order: {
-			date: 'DESC'
+			date: 'DESC',
+			sources: {
+				order: 'ASC'
+			}
 		},
 		take: 20,
 		relations: {

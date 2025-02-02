@@ -66,6 +66,9 @@ export class SourceEntity extends BaseEntity {
 	@Column('text')
 	title: string;
 
+	@Column('int4', { default: 0 })
+	order: number;
+
 	@ManyToOne(() => PostEntity, (post) => post.sources, {
 		nullable: false,
 		orphanedRowAction: 'delete'

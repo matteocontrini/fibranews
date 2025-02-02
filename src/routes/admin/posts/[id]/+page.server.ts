@@ -199,17 +199,19 @@ async function buildUpdatedSources(
 
 	const updatedSources = [];
 
-	for (const source of submittedSources) {
+	for (const [i, source] of submittedSources.entries()) {
 		const existingSource =
 			source.id != null ? existingSources.find((s) => s.id === source.id) : null;
 
 		if (existingSource) {
+			existingSource.order = i + 1;
 			existingSource.url = source.url;
 			existingSource.domain = new URL(source.url).hostname;
 			existingSource.title = source.title;
 			updatedSources.push(existingSource);
 		} else {
 			const newSource = new SourceEntity();
+			newSource.order = i + 1;
 			newSource.url = source.url;
 			newSource.domain = new URL(source.url).hostname;
 			newSource.title = source.title;

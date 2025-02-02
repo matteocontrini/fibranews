@@ -6,7 +6,17 @@
 	import autosize from 'svelte-autosize';
 	import { toast } from 'svelte-sonner';
 	import slugify from 'slugify';
-	import { CheckIcon, MoveUpIcon, PlusIcon, SaveIcon, Trash2Icon, WandSparklesIcon } from 'lucide-svelte';
+	import {
+		ArrowDownIcon,
+		ArrowUp,
+		ArrowUpIcon,
+		CheckIcon,
+		MoveUpIcon,
+		PlusIcon,
+		SaveIcon,
+		Trash2Icon,
+		WandSparklesIcon
+	} from 'lucide-svelte';
 	import { browser } from '$app/environment';
 	import MultiSelect from 'svelte-multiselect';
 	import { tick } from 'svelte';
@@ -130,6 +140,15 @@
 		} finally {
 			isSummarizing = false;
 		}
+	}
+
+	function move(i: number, direction: 'up' | 'down') {
+		const source = $formData.sources[i];
+		const newIndex = direction === 'up' ? i - 1 : i + 1;
+		// Swap the elements at the old and new indices
+		$formData.sources[i] = $formData.sources[newIndex];
+		$formData.sources[newIndex] = source;
+		$formData.sources = $formData.sources;
 	}
 </script>
 
@@ -341,23 +360,32 @@
 											</Label>
 
 											<div class="flex gap-2 flex-wrap">
+												<button class="button light px-2 py-1"
+																disabled={i === 0}
+																type="button" onclick={() => move(i, 'up')}>
+													<ArrowUpIcon class="size-3 text-black dark:text-white" />
+												</button>
+
+												<button class="button light px-2 py-1"
+																disabled={i === $formData.sources.length - 1}
+																type="button" onclick={() => move(i, 'down')}>
+													<ArrowDownIcon class="size-3 text-black dark:text-white" />
+												</button>
+
 												<button class="button flex items-center gap-x-2 justify-center text-sm py-1"
-																type="button"
-																onclick={() => loadArticle(source, 'title')}>
+																type="button" onclick={() => loadArticle(source, 'title')}>
 													<WandSparklesIcon class="size-3" />
 													Titolo
 												</button>
 
 												<button class="button flex items-center gap-x-2 justify-center text-sm py-1"
-																type="button"
-																onclick={() => loadArticle(source, 'content')}>
+																type="button" onclick={() => loadArticle(source, 'content')}>
 													<MoveUpIcon class="size-3" />
 													Contenuto
 												</button>
 
 												<button class="button danger flex items-center gap-x-2 justify-center text-sm py-1"
-																type="button"
-																onclick={() => removeSource(source)}>
+																type="button" onclick={() => removeSource(source)}>
 													<Trash2Icon class="size-3" />
 													Rimuovi
 												</button>
