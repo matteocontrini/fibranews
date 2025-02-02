@@ -48,15 +48,18 @@
 			</a>
 		</div>
 	{:else}
-		<a class="md:mr-auto md:ml-8 md:mt-1.5 text-center font-medium text-violet-700 dark:text-violet-500 hover:underline"
-			 href="/admin">
-			Lista post
-		</a>
+		{#if data.user}
+			<a
+				class="md:mr-auto md:ml-8 md:mt-1.5 text-center font-medium text-violet-700 dark:text-violet-500 hover:underline"
+				href="/admin">
+				Lista post
+			</a>
 
-		<div class="flex items-center gap-x-2.5">
-			<img src={data.user?.photoUrl} alt={data.user?.name} class="h-8 rounded-full">
-			<span>{data.user?.name}</span>
-		</div>
+			<div class="flex items-center gap-x-2.5">
+				<img src={data.user?.photoUrl} alt={data.user?.name} class="h-8 rounded-full">
+				<span>{data.user?.name}</span>
+			</div>
+		{/if}
 	{/if}
 </div>
 
