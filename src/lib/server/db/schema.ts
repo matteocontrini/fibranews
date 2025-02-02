@@ -108,7 +108,7 @@ export class PostEntity extends BaseEntity {
 	@Column('date')
 	date: string;
 
-	@Column('boolean')
+	@Column('boolean', { default: false })
 	hideDay: boolean;
 
 	@Column('text')

@@ -48,7 +48,7 @@
 		</div>
 
 		{#if post.isAiGenerated}
-			<footer class="italic mt-6 text-violet-700 dark:text-violet-500 flex gap-x-2.5">
+			<footer class="italic mt-6 text-slate-500 dark:text-slate-400 flex gap-x-2.5">
 				<WandSparklesIcon class="size-4 shrink-0 mt-1.5" />
 				Questa notizia è stata riassunta con l'aiuto di un'AI.
 			</footer>
