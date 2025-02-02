@@ -15,7 +15,7 @@ export async function load({ url, cookies, locals }) {
 			throw new Error('Invalid Telegram auth');
 		}
 
-		if (Date.now() - (+authDate * 1000) > authDateGracePeriod) {
+		if (Date.now() - +authDate * 1000 > authDateGracePeriod) {
 			throw new Error('Telegram auth expired');
 		}
 
@@ -29,7 +29,8 @@ export async function load({ url, cookies, locals }) {
 			httpOnly: true,
 			path: '/',
 			sameSite: 'lax',
-			secure: !dev
+			secure: !dev,
+			maxAge: 3600 * 24 * 60 // 60 days
 		});
 
 		return redirect(302, '/admin');
