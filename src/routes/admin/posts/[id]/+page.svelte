@@ -8,10 +8,8 @@
 	import slugify from 'slugify';
 	import {
 		ArrowDownIcon,
-		ArrowUp,
 		ArrowUpIcon,
-		CheckIcon,
-		MoveUpIcon,
+		CheckIcon, CircleFadingArrowUpIcon,
 		PlusIcon,
 		SaveIcon,
 		Trash2Icon,
@@ -220,7 +218,7 @@
 									Puoi usare Markdown per formattare il testo.
 								</p>
 
-								<button class="button flex items-center gap-x-2 justify-center text-sm py-1"
+								<button class="button light flex items-center gap-x-2 justify-center text-sm py-1"
 												type="button" disabled={isSummarizing}
 												onclick={() => summarize()}>
 									<WandSparklesIcon class="size-3" />
@@ -363,24 +361,24 @@
 												<button class="button light px-2 py-1"
 																disabled={i === 0}
 																type="button" onclick={() => move(i, 'up')}>
-													<ArrowUpIcon class="size-3 text-black dark:text-white" />
+													<ArrowUpIcon class="size-3" />
 												</button>
 
 												<button class="button light px-2 py-1"
 																disabled={i === $formData.sources.length - 1}
 																type="button" onclick={() => move(i, 'down')}>
-													<ArrowDownIcon class="size-3 text-black dark:text-white" />
+													<ArrowDownIcon class="size-3" />
 												</button>
 
-												<button class="button flex items-center gap-x-2 justify-center text-sm py-1"
+												<button class="button light flex items-center gap-x-2 justify-center text-sm py-1"
 																type="button" onclick={() => loadArticle(source, 'title')}>
 													<WandSparklesIcon class="size-3" />
 													Titolo
 												</button>
 
-												<button class="button flex items-center gap-x-2 justify-center text-sm py-1"
+												<button class="button light flex items-center gap-x-2 justify-center text-sm py-1"
 																type="button" onclick={() => loadArticle(source, 'content')}>
-													<MoveUpIcon class="size-3" />
+													<CircleFadingArrowUpIcon class="size-3" />
 													Contenuto
 												</button>
 

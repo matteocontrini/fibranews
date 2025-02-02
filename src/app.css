@@ -55,7 +55,9 @@
     }
 
     &.light {
-      @apply bg-white border border-slate-200 hover:bg-gray-100 dark:bg-gray-900 dark:hover:bg-gray-800 dark:border-slate-700;
+      @apply bg-white border border-slate-200 hover:bg-gray-100
+      dark:bg-gray-900 dark:hover:bg-gray-800 dark:border-slate-700
+      text-black dark:text-white;
     }
   }
 
