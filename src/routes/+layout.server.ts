@@ -1,11 +1,12 @@
-import { TagEntity } from '$lib/server/db/schema';
+import { PostStatus, TagEntity } from '$lib/server/db/schema';
 import type { PopularTag } from '$lib/types';
 
 export async function load({ locals, url }) {
 	const popularTags = await TagEntity.createQueryBuilder('tag')
-		.leftJoinAndSelect('tag.posts', 'posts')
-		.groupBy('tag.id, posts.id')
-		.orderBy('COUNT(posts.id)', 'DESC')
+		.leftJoin('tag.posts', 'post')
+		.where('post.deletedAt IS NULL AND post.status = :status', { status: PostStatus.PUBLISHED })
+		.groupBy('tag.id')
+		.orderBy('COUNT(*)', 'DESC')
 		.limit(3)
 		.getMany();
 
