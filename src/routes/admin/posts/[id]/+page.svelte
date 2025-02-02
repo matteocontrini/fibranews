@@ -132,6 +132,9 @@
 			}
 			const data = await res.json();
 			$formData.content = data.summary;
+			$formData.isAiGenerated = true;
+			await tick();
+			autosize.update(contentTextarea);
 		} catch (e) {
 			console.error(e);
 			toast.error('Errore nella generazione del contenuto');
