@@ -42,7 +42,7 @@ export async function load({ url, cookies, locals }) {
 
 	return {
 		seo: {
-			title: 'Login to fibra.news'
+			title: 'Fibra.news ADMIN'
 		}
 	};
 }
