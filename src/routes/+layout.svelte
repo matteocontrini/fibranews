@@ -48,9 +48,9 @@
 			</a>
 		</div>
 	{:else}
-		<a class="md:mr-auto md:ml-8 md:mt-1.5 text-center font-medium text-slate-500 dark:text-slate-400"
+		<a class="md:mr-auto md:ml-8 md:mt-1.5 text-center font-medium text-violet-700 dark:text-violet-500 hover:underline"
 			 href="/admin">
-			ADMIN
+			Lista post
 		</a>
 
 		<div class="flex items-center gap-x-2.5">
