@@ -43,7 +43,8 @@
 			</div>
 		{/if}
 
-		<div class="mt-6 prose prose-lg prose-slate dark:prose-invert max-w-none">
+		<div class="mt-6 prose prose-lg prose-slate dark:prose-invert max-w-none
+							prose-a:text-violet-700 prose-a:dark:text-violet-500 prose-a:no-underline prose-a:font-normal prose-a:hover:underline">
 			{@html post.content}
 		</div>
 
