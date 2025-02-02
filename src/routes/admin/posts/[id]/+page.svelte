@@ -231,7 +231,7 @@
 							<Control>
 								{#snippet children({ props })}
 									<div class="space-y-1.5">
-										<div class="flex justify-items-start items-center gap-x-2.5">
+										<div class="flex flex-col sm:flex-row justify-between sm:items-center gap-2.5">
 											<div class="font-medium">
 												{#if source.id}
 													Fonte #{i + 1}
@@ -240,21 +240,23 @@
 												{/if}
 											</div>
 
-											<button class="button ml-auto flex items-center gap-x-2 justify-center text-sm py-1.5"
-															type="button">
-												<WandSparklesIcon class="size-3" />
-												Estrai titolo
-											</button>
+											<div class="grid grid-cols-2 gap-2">
+												<button class="button flex items-center gap-x-2 justify-center text-sm py-1.5"
+																type="button">
+													<WandSparklesIcon class="size-3" />
+													Estrai titolo
+												</button>
 
-											<button class="button danger flex items-center gap-x-2 justify-center text-sm py-1.5"
-															type="button"
-															onclick={() => removeSource(source)}>
-												<Trash2Icon class="size-3" />
-												Rimuovi
-											</button>
+												<button class="button danger flex items-center gap-x-2 justify-center text-sm py-1.5"
+																type="button"
+																onclick={() => removeSource(source)}>
+													<Trash2Icon class="size-3" />
+													Rimuovi
+												</button>
+											</div>
 										</div>
 
-										<div class="grid grid-cols-2 gap-x-2.5">
+										<div class="grid sm:grid-cols-2 gap-2.5">
 											<ElementField {form} name="sources[{i}].url">
 												<div class="flex flex-col gap-2">
 													<textarea {...props}
@@ -284,7 +286,7 @@
 						{/each}
 					</div>
 
-					<button class="button w-fit ml-auto mt-3 flex items-center gap-x-2 justify-center"
+					<button class="button mt-3 flex items-center gap-x-2 justify-center"
 									type="button"
 									onclick={addSource}>
 						<PlusIcon class="size-4" />
