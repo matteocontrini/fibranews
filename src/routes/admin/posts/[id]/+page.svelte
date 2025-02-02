@@ -65,6 +65,28 @@
 	function removeSource(source: SubmitPostSource) {
 		$formData.sources = $formData.sources.filter((s) => s.id !== source.id);
 	}
+
+	async function loadTitle(source: SubmitPostSource) {
+		try {
+			const res = await fetch('/admin/api/fetch-article-title', {
+				method: 'POST',
+				body: JSON.stringify({
+					url: source.url
+				})
+			});
+			if (!res.ok) {
+				console.error('Status code: ' + res.status);
+				toast.error('Errore nell\'estrazione del titolo');
+				return;
+			}
+			const data = await res.json();
+			source.title = data.title;
+			$formData.sources = $formData.sources;
+		} catch (e) {
+			console.error(e);
+			toast.error('Errore nell\'estrazione del titolo');
+		}
+	}
 </script>
 
 <div class="container mt-14">
@@ -232,17 +254,18 @@
 								{#snippet children({ props })}
 									<div class="space-y-1.5">
 										<div class="flex flex-col sm:flex-row justify-between sm:items-center gap-2.5">
-											<div class="font-medium">
+											<Label class="font-medium">
 												{#if source.id}
 													Fonte #{i + 1}
 												{:else}
 													Nuova fonte
 												{/if}
-											</div>
+											</Label>
 
 											<div class="grid grid-cols-2 gap-2">
 												<button class="button flex items-center gap-x-2 justify-center text-sm py-1.5"
-																type="button">
+																type="button"
+																onclick={() => loadTitle(source)}>
 													<WandSparklesIcon class="size-3" />
 													Estrai titolo
 												</button>
