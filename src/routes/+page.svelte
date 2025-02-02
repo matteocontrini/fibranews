@@ -8,8 +8,7 @@
 	<h1 class="text-6xl font-black tracking-wide text-center">
 		<span>
 			Ultime
-		</span>
-		<span class="text-violet-700 dark:text-violet-600">
+		</span><span class="pl-2 text-violet-700 dark:text-violet-600">
 			notizie
 		</span>
 	</h1>
