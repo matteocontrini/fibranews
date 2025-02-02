@@ -15,7 +15,7 @@
 
 	<div class="mt-20 grid gap-20">
 		{#each data.postsByYear as year}
-			<section>
+			<section class="grid gap-20">
 				<div class="text-4xl max-md:text-center">
 					{year.year}
 				</div>
