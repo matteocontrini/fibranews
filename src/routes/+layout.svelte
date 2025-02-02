@@ -23,7 +23,7 @@
 <div class="py-6 container flex items-center justify-between flex-col gap-y-2.5 md:flex-row">
 	<a class="rounded-lg text-4xl md:text-2xl select-none"
 		 href="/">
-		<span class="font-bold tracking-wide text-slate-600 dark:text-slate-400">
+		<span class="font-bold tracking-wide text-slate-600 dark:text-white">
 			fibra.
 		</span><span class="font-light text-violet-700 dark:text-violet-600">
 			news
