@@ -4,12 +4,11 @@
 
 	type Props = {
 		post: Post,
-		alwaysShowTags?: boolean
+		alwaysShowTags?: boolean,
+		showSources?: boolean
 	}
 
-	let { post, alwaysShowTags }: Props = $props();
-
-	let showSources = $state(false);
+	let { post, alwaysShowTags, showSources = false }: Props = $props();
 
 	function faviconUrl(domain: string) {
 		return `https://t0.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://${domain}&size=32`;

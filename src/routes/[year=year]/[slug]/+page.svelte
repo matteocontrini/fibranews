@@ -5,5 +5,5 @@
 </script>
 
 <div class="container mt-14">
-	<Post post={data.post} alwaysShowTags={true} />
+	<Post post={data.post} alwaysShowTags={true} showSources={true} />
 </div>
