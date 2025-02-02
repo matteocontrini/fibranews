@@ -1,6 +1,8 @@
 # fibra.news
 
-The source code of the [fibra.news](https://fibra.news) website.
+This repository contains the source code of the [fibra.news](https://fibra.news) website.
+
+It is a [SvelteKit](https://kit.svelte.dev) full-stack application.
 
 ## Developing
 
@@ -23,6 +25,4 @@ npm run build
 
 You can preview the production build with `npm run preview`.
 
-# Deployment
-
-TODO
+The SvelteKit app is currently configured to be deployed to Vercel as a server-rendered site, cached with Incremental Static Regeneration (ISR).
