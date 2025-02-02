@@ -18,6 +18,7 @@ export async function mapPost(x: PostEntity): Promise<Post> {
 		date: convertDate(x.date, x.hideDay),
 		year: x.date.slice(0, 4),
 		content: content.toString(),
+		isAiGenerated: x.isAiGenerated,
 		tags: x.tags.map((t) => ({ slug: t.slug })),
 		sources: x.sources.map((s) => ({
 			url: s.url,

@@ -127,8 +127,7 @@
 		} catch (e) {
 			console.error(e);
 			toast.error('Errore nella generazione del contenuto');
-		}
-		finally {
+		} finally {
 			isSummarizing = false;
 		}
 	}
@@ -210,6 +209,32 @@
 								</button>
 							</Description>
 							<FieldErrors />
+						</div>
+					</div>
+				{/snippet}
+			</Control>
+		</Field>
+
+		<!-- Is AI generated -->
+		<Field {form} name="isAiGenerated">
+			<Control>
+				{#snippet children({ props })}
+					<div class="grid sm:grid-cols-12 gap-4">
+						<div class="col-span-3">
+							<Legend class="font-medium text-lg">AI:</Legend>
+						</div>
+
+						<div class="col-span-9">
+							<Label class="max-sm:w-full w-fit flex items-center justify-center gap-x-2.5 cursor-pointer
+														rounded-md border border-slate-200 dark:border-slate-700 py-2 px-4
+														has-checked:border-violet-700 dark:has-checked:border-violet-600
+														has-checked:bg-violet-700 dark:has-checked:bg-violet-600 has-checked:text-white">
+								<input {...props}
+											 bind:checked={$formData.isAiGenerated}
+											 type="checkbox" />
+								Generato con AI
+								<FieldErrors />
+							</Label>
 						</div>
 					</div>
 				{/snippet}

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { PlusCircleIcon } from 'lucide-svelte';
+	import { PlusCircleIcon, WandSparklesIcon } from 'lucide-svelte';
 
 	let { data } = $props();
 </script>
@@ -39,6 +39,11 @@
 					{#if post.status === 'draft'}
 						<span class="font-medium text-violet-700 dark:text-violet-500 pr-1">
 							[Bozza]
+						</span>
+					{/if}
+					{#if post.isAiGenerated}
+						<span class="font-medium text-violet-700 dark:text-violet-500 pr-1">
+							[<WandSparklesIcon class="inline-block size-4 mx-1" />]
 						</span>
 					{/if}
 					<span class="font-medium">

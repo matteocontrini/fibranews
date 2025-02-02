@@ -4,6 +4,7 @@ export type Post = {
 	date: string;
 	year: string;
 	content: string;
+	isAiGenerated: boolean;
 	tags: PostTag[];
 	sources: PostSource[];
 };

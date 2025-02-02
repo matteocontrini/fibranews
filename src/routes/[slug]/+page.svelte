@@ -15,15 +15,17 @@
 
 	<div class="mt-20 grid gap-20">
 		{#each data.postsByYear as year}
-			<div class="text-4xl max-md:text-center">
-				{year.year}
-			</div>
+			<section>
+				<div class="text-4xl max-md:text-center">
+					{year.year}
+				</div>
 
-			<div class="grid gap-20">
-				{#each year.posts as post}
-					<Post {post} />
-				{/each}
-			</div>
+				<div class="grid gap-20">
+					{#each year.posts as post}
+						<Post {post} />
+					{/each}
+				</div>
+			</section>
 		{/each}
 	</div>
 </div>

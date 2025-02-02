@@ -45,6 +45,7 @@ function mapPost(x: PostEntity): AdminPost {
 		date: convertDate(x.date, false),
 		year: x.date.slice(0, 4),
 		hideDay: x.hideDay,
+		isAiGenerated: x.isAiGenerated,
 		tags: x.tags.map((t) => ({ slug: t.slug }))
 	};
 }

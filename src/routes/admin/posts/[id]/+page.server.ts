@@ -64,6 +64,7 @@ function mapPost(x: PostEntity) {
 		published: x.status === PostStatus.PUBLISHED,
 		date: x.date,
 		hideDay: x.hideDay,
+		isAiGenerated: x.isAiGenerated,
 		tags: x.tags.map((t) => t.slug),
 		sources: x.sources.map((s) => ({
 			id: s.id,
@@ -97,6 +98,7 @@ export const actions = {
 			post.slug = form.data.slug;
 			post.date = form.data.date;
 			post.hideDay = form.data.hideDay;
+			post.isAiGenerated = form.data.isAiGenerated;
 			post.tags = await queryOrCreateTags(form.data.tags, event.locals.user);
 			post.sources = await buildUpdatedSources([], form.data.sources, post);
 
@@ -123,6 +125,7 @@ export const actions = {
 			post.date = form.data.date;
 			post.hideDay = form.data.hideDay;
 			post.updatedByUser = event.locals.user;
+			post.isAiGenerated = form.data.isAiGenerated;
 			post.tags = await queryOrCreateTags(form.data.tags, event.locals.user);
 			post.sources = await buildUpdatedSources(post.sources, form.data.sources, post);
 

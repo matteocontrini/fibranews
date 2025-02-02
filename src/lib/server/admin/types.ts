@@ -8,6 +8,7 @@ export type AdminPost = {
 	date: string;
 	year: string;
 	hideDay: boolean;
+	isAiGenerated: boolean;
 	tags: AdminPostTag[];
 };
 

@@ -1,5 +1,6 @@
 <script lang="ts">
 	import type { Post } from '$lib/types';
+	import { WandSparklesIcon } from 'lucide-svelte';
 
 	type Props = {
 		post: Post,
@@ -17,7 +18,7 @@
 	/* eslint svelte/no-at-html-tags: "off" */
 </script>
 
-<div class="grid md:grid-cols-12 gap-y-6 max-md:border-b max-md:pb-10">
+<article class="grid md:grid-cols-12 gap-y-6 max-md:border-b max-md:pb-10">
 	<div class="col-span-4">
 		<p class="text-slate-500 dark:text-slate-400 text-xl leading-10">
 			{post.date}
@@ -46,8 +47,15 @@
 			{@html post.content}
 		</div>
 
+		{#if post.isAiGenerated}
+			<footer class="italic mt-6 text-violet-700 dark:text-violet-500 flex gap-x-2.5">
+				<WandSparklesIcon class="size-4 shrink-0 mt-1.5" />
+				Questa notizia è stata riassunta con l'aiuto di un'AI.
+			</footer>
+		{/if}
+
 		{#if post.sources.length > 0}
-			<div class="mt-6 text-violet-700 dark:text-violet-500">
+			<aside class="mt-6 text-violet-700 dark:text-violet-500">
 				<button class="flex items-center gap-1.5 group cursor-pointer"
 								class:hidden={showSources}
 								onclick={() => showSources = true}>
@@ -71,7 +79,7 @@
 						</li>
 					{/each}
 				</ul>
-			</div>
+			</aside>
 		{/if}
 	</div>
-</div>
+</article>

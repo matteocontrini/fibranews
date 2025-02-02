@@ -18,6 +18,7 @@ export const schema = z.object({
 		.regex(/^\d{4}-\d{2}-\d{2}$/)
 		.default(() => new Date().toISOString().slice(0, 10)),
 	hideDay: z.boolean().default(false),
+	isAiGenerated: z.boolean().default(false),
 	tags: z.array(z.string()),
 	sources: z.array(SubmitPostSourceObject)
 });
