@@ -38,6 +38,13 @@
 			if (!data.postId && event.paths.includes('title')) {
 				$formData.slug = slugify(event.get('title'), { lower: true, strict: true });
 			}
+
+			if (event.paths.includes('slug')) {
+				$formData.slug = event.get('slug')
+					.replace(/ /g, '-')
+					.replace(/-{2,}/g, '-')
+					.toLowerCase();
+			}
 		},
 		onError({ result }) {
 			console.error(result);

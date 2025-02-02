@@ -12,7 +12,11 @@ export const schema = z.object({
 	title: z.string().min(3).max(255),
 	content: z.string().min(3).max(16384),
 	published: z.boolean(),
-	slug: z.string().min(3).max(255),
+	slug: z
+		.string()
+		.min(3)
+		.max(255)
+		.regex(/^[a-z0-9-]+$/),
 	date: z
 		.string()
 		.regex(/^\d{4}-\d{2}-\d{2}$/)
