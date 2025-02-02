@@ -54,4 +54,8 @@
       @apply bg-red-700 hover:bg-red-600;
     }
   }
+
+  [data-fs-field-errors] {
+    @apply text-sm text-red-500 font-medium empty:hidden;
+  }
 }

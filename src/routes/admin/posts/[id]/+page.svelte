@@ -1,12 +1,12 @@
 <script lang="ts">
 	import SuperDebug, { superForm } from 'sveltekit-superforms';
-	import { schema } from './form';
+	import { schema, type SubmitPostSource } from './form';
 	import { zodClient } from 'sveltekit-superforms/adapters';
-	import { Field, Control, Label, Description, FieldErrors, Legend } from 'formsnap';
+	import { Field, Fieldset, ElementField, Control, Label, Description, FieldErrors, Legend } from 'formsnap';
 	import autosize from 'svelte-autosize';
 	import { toast } from 'svelte-sonner';
 	import slugify from 'slugify';
-	import { CheckIcon, SaveIcon, Trash2Icon } from 'lucide-svelte';
+	import { CheckIcon, PlusIcon, SaveIcon, Trash2Icon, WandSparklesIcon } from 'lucide-svelte';
 	import { browser } from '$app/environment';
 	import MultiSelect from 'svelte-multiselect';
 
@@ -52,10 +52,23 @@
 			deleteForm.submit();
 		}
 	}
+
+	function addSource() {
+		$formData.sources.push({
+			id: null,
+			url: '',
+			title: ''
+		});
+		$formData.sources = $formData.sources;
+	}
+
+	function removeSource(source: SubmitPostSource) {
+		$formData.sources = $formData.sources.filter((s) => s.id !== source.id);
+	}
 </script>
 
 <div class="container mt-14">
-	<form method="POST" action="?/submit" use:enhance class="grid gap-4">
+	<form method="POST" action="?/submit" use:enhance class="grid gap-4.5">
 		<!-- Title -->
 		<Field {form} name="title">
 			<Control>
@@ -65,13 +78,13 @@
 							<Label class="font-medium text-lg">Titolo:</Label>
 						</div>
 
-						<div class="col-span-9">
+						<div class="col-span-9 grid gap-2">
 							<textarea {...props}
 												bind:value={$formData.title}
 												rows={1}
 												use:autosize
 												class="text-xl"></textarea>
-							<FieldErrors class="mt-2 text-sm text-red-500" />
+							<FieldErrors />
 						</div>
 					</div>
 				{/snippet}
@@ -87,14 +100,14 @@
 							<Label class="font-medium text-lg">Slug:</Label>
 						</div>
 
-						<div class="col-span-9">
+						<div class="col-span-9 grid gap-2">
 							<input {...props} type="text" bind:value={$formData.slug} readonly={data.postId != null} />
-							<Description class="mt-2 text-xs text-slate-500 dark:text-slate-400">
+							<Description class="text-xs text-slate-500 dark:text-slate-400">
 								<code>
 									https://fibra.news/{$formData.date.slice(0, 4) || '?'}/{$formData.slug}
 								</code>
 							</Description>
-							<FieldErrors class="mt-2 text-sm text-red-500" />
+							<FieldErrors />
 						</div>
 					</div>
 				{/snippet}
@@ -115,13 +128,13 @@
 												bind:value={$formData.content}
 												rows={8}
 												use:autosize
-												class="text-lg"></textarea>
-							<Description class="mt-2 text-sm text-slate-500 dark:text-slate-400">
+												class="text-lg grid gap-2"></textarea>
+							<Description class="text-sm text-slate-500 dark:text-slate-400">
 								<p>
 									Puoi usare Markdown per formattare il testo.
 								</p>
 							</Description>
-							<FieldErrors class="mt-2 text-sm text-red-500" />
+							<FieldErrors />
 						</div>
 					</div>
 				{/snippet}
@@ -137,7 +150,7 @@
 							<Label class="font-medium text-lg">Data:</Label>
 						</div>
 
-						<div class="col-span-9">
+						<div class="col-span-9 grid gap-2">
 							<div class="flex items-center flex-col sm:flex-row gap-4">
 								<input {...props}
 											 bind:value={$formData.date}
@@ -155,14 +168,14 @@
 															 bind:checked={$formData.hideDay}
 															 type="checkbox" />
 												Nascondi giorno
-												<FieldErrors class="text-sm text-red-500 empty:hidden" />
+												<FieldErrors />
 											</Label>
 										{/snippet}
 									</Control>
 								</Field>
 							</div>
 
-							<FieldErrors class="mt-2 text-sm text-red-500" />
+							<FieldErrors />
 						</div>
 					</div>
 				{/snippet}
@@ -178,7 +191,7 @@
 							<Label class="font-medium text-lg">Tag:</Label>
 						</div>
 
-						<div class="col-span-9">
+						<div class="col-span-9 grid gap-2">
 							<MultiSelect {...props}
 													 bind:selected={$formData.tags}
 													 options={data.allTags}
@@ -199,12 +212,87 @@
 													 liActiveOptionClass="!bg-violet-700 dark:!bg-violet-600 !text-white"
 													 liActiveUserMsgClass="!bg-violet-700 dark:!bg-violet-600 !text-white"
 							/>
-							<FieldErrors class="mt-2 text-sm text-red-500" />
+							<FieldErrors />
 						</div>
 					</div>
 				{/snippet}
 			</Control>
 		</Field>
+
+		<!-- Sources -->
+		<Fieldset {form} name="sources">
+			<div class="grid sm:grid-cols-12 gap-4">
+				<div class="col-span-3">
+					<Legend class="font-medium text-lg">Fonti:</Legend>
+				</div>
+				<div class="col-span-9">
+					<div class="grid gap-6">
+						{#each $formData.sources as source, i}
+							<Control>
+								{#snippet children({ props })}
+									<div class="space-y-1.5">
+										<div class="flex justify-items-start items-center gap-x-2.5">
+											<div class="font-medium">
+												{#if source.id}
+													Fonte #{i + 1}
+												{:else}
+													Nuova fonte
+												{/if}
+											</div>
+
+											<button class="button ml-auto flex items-center gap-x-2 justify-center text-sm py-1.5"
+															type="button">
+												<WandSparklesIcon class="size-3" />
+												Estrai titolo
+											</button>
+
+											<button class="button danger flex items-center gap-x-2 justify-center text-sm py-1.5"
+															type="button"
+															onclick={() => removeSource(source)}>
+												<Trash2Icon class="size-3" />
+												Rimuovi
+											</button>
+										</div>
+
+										<div class="grid grid-cols-2 gap-x-2.5">
+											<ElementField {form} name="sources[{i}].url">
+												<div class="flex flex-col gap-2">
+													<textarea {...props}
+																		class="grow"
+																		bind:value={$formData.sources[i].url}
+																		rows={1}
+																		use:autosize
+																		placeholder="https://..."></textarea>
+													<FieldErrors />
+												</div>
+											</ElementField>
+											<ElementField {form} name="sources[{i}].title">
+												<div class="flex flex-col gap-2">
+													<textarea {...props}
+																		class="grow"
+																		bind:value={$formData.sources[i].title}
+																		rows={1}
+																		use:autosize
+																		placeholder="Titolo"></textarea>
+													<FieldErrors />
+												</div>
+											</ElementField>
+										</div>
+									</div>
+								{/snippet}
+							</Control>
+						{/each}
+					</div>
+
+					<button class="button w-fit ml-auto mt-3 flex items-center gap-x-2 justify-center"
+									type="button"
+									onclick={addSource}>
+						<PlusIcon class="size-4" />
+						Aggiungi fonte
+					</button>
+				</div>
+			</div>
+		</Fieldset>
 
 		<!-- Post status -->
 		<Field {form} name="published">
@@ -212,7 +300,7 @@
 				<div class="col-span-3">
 					<Legend class="font-medium text-lg">Stato:</Legend>
 				</div>
-				<div class="col-span-9">
+				<div class="col-span-9 grid gap-2">
 					<div class="flex">
 						<Control>
 							{#snippet children({ props })}
@@ -235,7 +323,7 @@
 							{/snippet}
 						</Control>
 					</div>
-					<FieldErrors class="mt-2 text-sm text-red-500" />
+					<FieldErrors />
 				</div>
 			</div>
 		</Field>

@@ -66,7 +66,10 @@ export class SourceEntity extends BaseEntity {
 	@Column('text')
 	title: string;
 
-	@ManyToOne(() => PostEntity, (post) => post.sources)
+	@ManyToOne(() => PostEntity, (post) => post.sources, {
+		nullable: false,
+		orphanedRowAction: 'delete'
+	})
 	post: PostEntity;
 }
 
@@ -115,7 +118,9 @@ export class PostEntity extends BaseEntity {
 	@JoinTable({ name: 'posts_tags' })
 	tags: TagEntity[];
 
-	@OneToMany(() => SourceEntity, (source) => source.post)
+	@OneToMany(() => SourceEntity, (source) => source.post, {
+		cascade: true
+	})
 	sources: SourceEntity[];
 }
 

@@ -1,8 +1,8 @@
 import { error, fail, redirect } from '@sveltejs/kit';
-import { PostEntity, PostStatus, TagEntity, UserEntity } from '$lib/server/db/schema';
+import { PostEntity, PostStatus, SourceEntity, TagEntity, UserEntity } from '$lib/server/db/schema';
 import { message, superValidate } from 'sveltekit-superforms';
 import { zod } from 'sveltekit-superforms/adapters';
-import { schema } from './form';
+import { schema, type SubmitPostSource } from './form';
 import { In } from 'typeorm';
 
 export async function load({ params, locals }) {
@@ -37,7 +37,8 @@ export async function load({ params, locals }) {
 			id: +id
 		},
 		relations: {
-			tags: true
+			tags: true,
+			sources: true
 		}
 	});
 
@@ -63,7 +64,12 @@ function mapPost(x: PostEntity) {
 		published: x.status === PostStatus.PUBLISHED,
 		date: x.date,
 		hideDay: x.hideDay,
-		tags: x.tags.map((t) => t.slug)
+		tags: x.tags.map((t) => t.slug),
+		sources: x.sources.map((s) => ({
+			id: s.id,
+			url: s.url,
+			title: s.title
+		}))
 	};
 }
 
@@ -92,6 +98,7 @@ export const actions = {
 			post.date = form.data.date;
 			post.hideDay = form.data.hideDay;
 			post.tags = await queryOrCreateTags(form.data.tags, event.locals.user);
+			post.sources = await buildUpdatedSources([], form.data.sources, post);
 
 			await post.save();
 
@@ -100,6 +107,9 @@ export const actions = {
 			const post = await PostEntity.findOne({
 				where: {
 					id: +id
+				},
+				relations: {
+					sources: true
 				}
 			});
 
@@ -114,6 +124,7 @@ export const actions = {
 			post.hideDay = form.data.hideDay;
 			post.updatedByUser = event.locals.user;
 			post.tags = await queryOrCreateTags(form.data.tags, event.locals.user);
+			post.sources = await buildUpdatedSources(post.sources, form.data.sources, post);
 
 			await post.save();
 
@@ -172,4 +183,37 @@ async function queryOrCreateTags(tags: string[], user: UserEntity) {
 	}
 
 	return tagEntities;
+}
+
+async function buildUpdatedSources(
+	existingSources: SourceEntity[],
+	submittedSources: SubmitPostSource[],
+	post: PostEntity
+) {
+	if (!submittedSources.length) {
+		return [];
+	}
+
+	const updatedSources = [];
+
+	for (const source of submittedSources) {
+		const existingSource =
+			source.id != null ? existingSources.find((s) => s.id === source.id) : null;
+
+		if (existingSource) {
+			existingSource.url = source.url;
+			existingSource.domain = new URL(source.url).hostname;
+			existingSource.title = source.title;
+			updatedSources.push(existingSource);
+		} else {
+			const newSource = new SourceEntity();
+			newSource.url = source.url;
+			newSource.domain = new URL(source.url).hostname;
+			newSource.title = source.title;
+			newSource.post = post;
+			updatedSources.push(newSource);
+		}
+	}
+
+	return updatedSources;
 }
