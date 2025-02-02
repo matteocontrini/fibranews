@@ -6,9 +6,10 @@
 	import autosize from 'svelte-autosize';
 	import { toast } from 'svelte-sonner';
 	import slugify from 'slugify';
-	import { CheckIcon, PlusIcon, SaveIcon, Trash2Icon, WandSparklesIcon } from 'lucide-svelte';
+	import { CheckIcon, MoveUpIcon, PlusIcon, SaveIcon, Trash2Icon, WandSparklesIcon } from 'lucide-svelte';
 	import { browser } from '$app/environment';
 	import MultiSelect from 'svelte-multiselect';
+	import { tick } from 'svelte';
 
 	let { data } = $props();
 
@@ -66,9 +67,11 @@
 		$formData.sources = $formData.sources.filter((s) => s.id !== source.id);
 	}
 
-	async function loadTitle(source: SubmitPostSource) {
+	let contentTextarea: HTMLTextAreaElement;
+
+	async function loadArticle(source: SubmitPostSource, field: 'title' | 'content') {
 		try {
-			const res = await fetch('/admin/api/fetch-article-title', {
+			const res = await fetch('/admin/api/fetch-article', {
 				method: 'POST',
 				body: JSON.stringify({
 					url: source.url
@@ -76,15 +79,57 @@
 			});
 			if (!res.ok) {
 				console.error('Status code: ' + res.status);
-				toast.error('Errore nell\'estrazione del titolo');
+				toast.error('Errore nell\'estrazione dell\'articolo');
 				return;
 			}
 			const data = await res.json();
-			source.title = data.title;
+			if (field === 'title') {
+				if (!data.title) {
+					toast.error('Titolo dell\'articolo non trovato');
+					return;
+				}
+				source.title = data.title;
+			}
+			if (field === 'content') {
+				if (!data.content) {
+					toast.error('Contenuto dell\'articolo non trovato');
+					return;
+				}
+				$formData.content = data.content;
+				await tick();
+				autosize.update(contentTextarea);
+			}
 			$formData.sources = $formData.sources;
 		} catch (e) {
 			console.error(e);
-			toast.error('Errore nell\'estrazione del titolo');
+			toast.error('Errore nell\'estrazione dell\'articolo');
+		}
+	}
+
+	let isSummarizing = $state(false);
+
+	async function summarize() {
+		isSummarizing = true;
+		try {
+			const res = await fetch('/admin/api/summarize', {
+				method: 'POST',
+				body: JSON.stringify({
+					text: $formData.content
+				})
+			});
+			if (!res.ok) {
+				console.error('Status code: ' + res.status);
+				toast.error('Errore nella generazione del contenuto');
+				return;
+			}
+			const data = await res.json();
+			$formData.content = data.summary;
+		} catch (e) {
+			console.error(e);
+			toast.error('Errore nella generazione del contenuto');
+		}
+		finally {
+			isSummarizing = false;
 		}
 	}
 </script>
@@ -145,16 +190,24 @@
 							<Label class="font-medium text-lg">Contenuto:</Label>
 						</div>
 
-						<div class="col-span-9">
+						<div class="col-span-9 grid gap-2">
 							<textarea {...props}
 												bind:value={$formData.content}
+												bind:this={contentTextarea}
 												rows={8}
 												use:autosize
-												class="text-lg grid gap-2"></textarea>
-							<Description class="text-sm text-slate-500 dark:text-slate-400">
-								<p>
+												class="text-lg"></textarea>
+							<Description class="flex justify-between">
+								<p class="text-sm text-slate-500 dark:text-slate-400">
 									Puoi usare Markdown per formattare il testo.
 								</p>
+
+								<button class="button flex items-center gap-x-2 justify-center text-sm py-1"
+												type="button" disabled={isSummarizing}
+												onclick={() => summarize()}>
+									<WandSparklesIcon class="size-3" />
+									Riassumi
+								</button>
 							</Description>
 							<FieldErrors />
 						</div>
@@ -252,7 +305,7 @@
 						{#each $formData.sources as source, i}
 							<Control>
 								{#snippet children({ props })}
-									<div class="space-y-1.5">
+									<div class="space-y-2">
 										<div class="flex flex-col sm:flex-row justify-between sm:items-center gap-2.5">
 											<Label class="font-medium">
 												{#if source.id}
@@ -262,15 +315,22 @@
 												{/if}
 											</Label>
 
-											<div class="grid grid-cols-2 gap-2">
-												<button class="button flex items-center gap-x-2 justify-center text-sm py-1.5"
+											<div class="flex gap-2 flex-wrap">
+												<button class="button flex items-center gap-x-2 justify-center text-sm py-1"
 																type="button"
-																onclick={() => loadTitle(source)}>
+																onclick={() => loadArticle(source, 'title')}>
 													<WandSparklesIcon class="size-3" />
-													Estrai titolo
+													Titolo
 												</button>
 
-												<button class="button danger flex items-center gap-x-2 justify-center text-sm py-1.5"
+												<button class="button flex items-center gap-x-2 justify-center text-sm py-1"
+																type="button"
+																onclick={() => loadArticle(source, 'content')}>
+													<MoveUpIcon class="size-3" />
+													Contenuto
+												</button>
+
+												<button class="button danger flex items-center gap-x-2 justify-center text-sm py-1"
 																type="button"
 																onclick={() => removeSource(source)}>
 													<Trash2Icon class="size-3" />

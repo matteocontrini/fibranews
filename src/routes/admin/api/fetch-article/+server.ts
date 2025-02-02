@@ -18,15 +18,11 @@ export const POST: RequestHandler = async ({ locals, request }) => {
 	const dom = new JSDOM(html);
 	const article = new Readability(dom.window.document).parse();
 
-	const title = article?.title;
-
-	if (!title) {
-		return json({
-			title: 'Titolo non trovato'
-		});
-	}
+	const title = article?.title?.trim();
+	const content = article?.textContent?.trim();
 
 	return json({
-		title
+		title,
+		content
 	});
 };
