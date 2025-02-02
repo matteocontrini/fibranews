@@ -56,7 +56,9 @@
 			</a>
 
 			<div class="flex items-center gap-x-2.5">
-				<img src={data.user?.photoUrl} alt={data.user?.name} class="h-8 rounded-full">
+				{#if data.user?.photoUrl}
+					<img src={data.user?.photoUrl} alt="" class="h-8 rounded-full">
+				{/if}
 				<span>{data.user?.name}</span>
 			</div>
 		{/if}
