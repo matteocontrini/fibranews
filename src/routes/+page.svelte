@@ -5,10 +5,11 @@
 </script>
 
 <div class="container mt-14">
-	<h1 class="text-6xl font-black tracking-wide text-center">
+	<h1 class="text-6xl font-black tracking-wide text-center flex flex-wrap gap-x-2 justify-center">
 		<span>
 			Ultime
-		</span><span class="pl-2 text-violet-700 dark:text-violet-600">
+		</span>
+		<span class="text-violet-700 dark:text-violet-600">
 			notizie
 		</span>
 	</h1>
