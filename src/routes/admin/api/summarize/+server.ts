@@ -14,7 +14,7 @@ export const POST: RequestHandler = async ({ locals, request }) => {
 	}
 
 	const genAI = new GoogleGenerativeAI(env.GEMINI_API_KEY);
-	const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash-exp' });
+	const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash' });
 
 	const prompt = `Riassumi il seguente articolo, seguendo queste regole:
 - Il riassunto deve essere lungo al massimo 600 caratteri e al massimo 2 paragrafi.
