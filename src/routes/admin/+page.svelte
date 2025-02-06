@@ -22,7 +22,7 @@
 
 	<div class="grid gap-4 mt-8">
 		{#each data.posts as post}
-			<a class="border rounded-md px-4 py-2.5 grid md:grid-cols-12 gap-y-4"
+			<a class="border rounded-md px-4 py-2.5 grid md:grid-cols-12 gap-y-4 gap-2"
 				 href="/admin/posts/{post.id}">
 				<div class="text-slate-500 dark:text-slate-400 md:col-span-3 md:grid">
 					<span class="font-medium">
@@ -55,7 +55,7 @@
 					</span>
 				</div>
 
-				<div class="md:col-span-2 text-slate-500 dark:text-slate-400 flex flex-wrap gap-x-1.5">
+				<div class="md:col-span-2 text-slate-500 dark:text-slate-400 flex flex-wrap gap-x-1.5 h-fit">
 					{#each post.tags as tag}
 						<span>
 						  #{tag.slug}
