@@ -72,10 +72,19 @@
 <hr class="mt-20">
 
 <footer class="container py-12 flex flex-col sm:flex-row items-center gap-4 justify-between">
-	<div>
+	<div class="flex gap-x-4">
 		<a href="https://creativecommons.org/licenses/by/4.0/deed.it" rel="external"
 			 class="font-medium text-violet-700 dark:text-violet-500 hover:underline">
 			&copy; CC BY 4.0
+		</a>
+
+		<span class="text-slate-500 dark:text-slate-400">
+			·
+		</span>
+
+		<a href="https://t.me/fibra_news" rel="external"
+			 class="font-medium text-violet-700 dark:text-violet-500 hover:underline">
+			Seguici su Telegram
 		</a>
 	</div>
 
