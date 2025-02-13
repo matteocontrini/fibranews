@@ -11,6 +11,7 @@ export async function load() {
 		},
 		order: {
 			date: 'DESC',
+			createdAt: 'DESC',
 			sources: {
 				order: 'ASC'
 			}
