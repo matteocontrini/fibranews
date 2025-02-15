@@ -225,7 +225,7 @@
 												class="text-lg"></textarea>
 							<Description class="flex justify-between">
 								<p class="text-sm text-slate-500 dark:text-slate-400">
-									Puoi usare Markdown per formattare il testo.
+									Usa Markdown per formattare il testo.
 								</p>
 
 								<button class="button light flex items-center gap-x-2 justify-center text-sm py-1"
