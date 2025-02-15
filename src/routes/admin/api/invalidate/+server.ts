@@ -57,7 +57,7 @@ async function revalidate(url: string) {
 	console.log('Revalidating: ' + url);
 
 	const headers = new Headers();
-	headers.append('x-prerender-revalidate', env.REVALIDATE_TOKEN!);
+	headers.append('x-prerender-revalidate', env.REVALIDATE_TOKEN);
 
 	await fetch(url, {
 		method: 'HEAD',

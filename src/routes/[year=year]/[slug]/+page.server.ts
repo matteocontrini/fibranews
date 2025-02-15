@@ -2,6 +2,7 @@ import { PostEntity, PostStatus } from '$lib/server/db/schema';
 import { Between, IsNull } from 'typeorm';
 import { error } from '@sveltejs/kit';
 import { mapPost } from '$lib/server/mapping';
+import { env } from '$env/dynamic/private';
 
 export async function load({ params }) {
 	const { year, slug } = params;
@@ -41,6 +42,7 @@ export async function load({ params }) {
 
 export const config = {
 	isr: {
-		expiration: 60
+		expiration: 60,
+		bypassToken: env.REVALIDATE_TOKEN
 	}
 };

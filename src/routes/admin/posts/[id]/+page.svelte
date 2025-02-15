@@ -494,10 +494,6 @@
 		</button>
 	</form>
 
-	<p class="mt-4 text-center text-sm text-gray-500 dark:text-gray-400">
-		Le pagine del sito hanno una cache di 60 secondi.
-	</p>
-
 	{#if browser}
 		<div class="mt-16">
 			<SuperDebug data={$formData} />

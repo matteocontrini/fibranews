@@ -2,6 +2,7 @@ import { PostEntity, PostStatus, TagEntity } from '$lib/server/db/schema';
 import { IsNull } from 'typeorm';
 import type { PopularTag } from '$lib/types';
 import { mapPost } from '$lib/server/mapping';
+import { env } from '$env/dynamic/private';
 
 export async function load() {
 	const posts = await PostEntity.find({
@@ -45,6 +46,7 @@ function mapTag(x: TagEntity): PopularTag {
 
 export const config = {
 	isr: {
-		expiration: 60
+		expiration: 60,
+		bypassToken: env.REVALIDATE_TOKEN
 	}
 };
