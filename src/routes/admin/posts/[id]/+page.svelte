@@ -21,6 +21,8 @@
 
 	let { data } = $props();
 
+	let slugChangedByUser = false;
+
 	const form = superForm(data.form, {
 		resetForm: false,
 		dataType: 'json',
@@ -35,7 +37,8 @@
 			}
 		},
 		onChange(event) {
-			if (!data.postId && event.paths.includes('title')) {
+			// Generate a slug from the title if the slug wasn't manually edited by the user
+			if (!data.postId && event.paths.includes('title') && !slugChangedByUser) {
 				$formData.slug = slugify(event.get('title'), { lower: true, strict: true });
 			}
 
@@ -158,6 +161,10 @@
 		$formData.sources[newIndex] = source;
 		$formData.sources = $formData.sources;
 	}
+
+	function onSlugChangedByUser() {
+		slugChangedByUser = true;
+	}
 </script>
 
 <div class="container mt-14">
@@ -194,7 +201,8 @@
 						</div>
 
 						<div class="col-span-9 grid gap-2">
-							<input {...props} type="text" bind:value={$formData.slug} readonly={data.postId != null} />
+							<input {...props} type="text" bind:value={$formData.slug} readonly={data.postId != null}
+										 onchange={() => onSlugChangedByUser()} />
 							<Description class="text-xs text-slate-500 dark:text-slate-400">
 								<code>
 									https://fibra.news/{$formData.date.slice(0, 4) || '?'}/{$formData.slug}
