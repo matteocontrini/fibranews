@@ -12,13 +12,13 @@
 		</span>
 	</h1>
 
-	<div class="mt-20 flex gap-5 flex-wrap items-center justify-center text-3xl">
+	<div class="mt-20 flex gap-x-8 gap-y-5 flex-wrap items-center justify-center text-3xl">
 		{#each data.tags as tag}
 			<a class="text-4xl font-semibold tracking-wide text-center group"
 				 href="/{tag.slug}">
 				<span class="text-violet-700 dark:text-violet-600 font-bold">
 					#
-				</span><span class="pl-1 group-hover:underline">
+				</span><span class="pl-0.5 group-hover:underline">
 				  {tag.slug}
 				</span>
 			</a>
