@@ -12,7 +12,7 @@
 		</span>
 	</h1>
 
-	<div class="mt-20 grid gap-5 items-center text-3xl">
+	<div class="mt-20 flex gap-5 flex-wrap items-center justify-center text-3xl">
 		{#each data.tags as tag}
 			<a class="text-4xl font-semibold tracking-wide text-center group"
 				 href="/{tag.slug}">
