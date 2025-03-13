@@ -3,13 +3,18 @@
 	import '../app.css';
 	import MetaTags from '$lib/meta-tags.svelte';
 	import { page } from '$app/state';
-
+	import { injectAnalytics } from '@vercel/analytics/sveltekit';
 	import { ModeWatcher, userPrefersMode } from 'mode-watcher';
 	import { Toaster } from 'svelte-sonner';
+	import { browser, dev } from '$app/environment';
 
 	let { children, data } = $props();
 
 	const isAdminPage = $derived(page.url.pathname.startsWith('/admin'));
+
+	if (browser) {
+		injectAnalytics({ mode: dev ? 'development' : 'production' });
+	}
 </script>
 
 <svelte:head>
