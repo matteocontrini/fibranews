@@ -83,14 +83,14 @@
 			&copy; CC BY 4.0
 		</a>
 
-		<span class="text-slate-500 dark:text-slate-400">
-			·
-		</span>
+		<!--		<span class="text-slate-500 dark:text-slate-400">-->
+		<!--			·-->
+		<!--		</span>-->
 
-		<a href="https://t.me/fibra_news" rel="external"
-			 class="font-medium text-violet-700 dark:text-violet-500 hover:underline">
-			Seguici su Telegram
-		</a>
+		<!--		<a href="https://t.me/fibra_news" rel="external"-->
+		<!--			 class="font-medium text-violet-700 dark:text-violet-500 hover:underline">-->
+		<!--			Seguici su Telegram-->
+		<!--		</a>-->
 	</div>
 
 	<select class="rounded-md" bind:value={$userPrefersMode}>
