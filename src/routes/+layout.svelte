@@ -31,8 +31,8 @@
 		<span class="font-bold tracking-wide text-slate-600 dark:text-white">
 			fibra.
 		</span><span class="font-light text-violet-700 dark:text-violet-600">
-			news
-		</span>
+		news
+	</span>
 	</a>
 
 	{#if !isAdminPage}
@@ -83,14 +83,14 @@
 			&copy; CC BY 4.0
 		</a>
 
-		<!--		<span class="text-slate-500 dark:text-slate-400">-->
-		<!--			·-->
-		<!--		</span>-->
+		<span class="text-slate-500 dark:text-slate-400">
+			·
+		</span>
 
-		<!--		<a href="https://t.me/fibra_news" rel="external"-->
-		<!--			 class="font-medium text-violet-700 dark:text-violet-500 hover:underline">-->
-		<!--			Seguici su Telegram-->
-		<!--		</a>-->
+		<a href="/chi-siamo" rel="external"
+			 class="font-medium text-violet-700 dark:text-violet-500 hover:underline">
+			Chi siamo
+		</a>
 	</div>
 
 	<select class="rounded-md" bind:value={$userPrefersMode}>
