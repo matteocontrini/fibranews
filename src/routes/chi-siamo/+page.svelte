@@ -17,7 +17,7 @@
 		</p>
 
 		<p>
-			Il sito web è open source
+			Il sito web è open source e il codice sorgente è pubblicato
 			<a href="https://github.com/matteocontrini/fibranews" class="text-violet-700 font-medium">
 				su GitHub
 			</a>.
